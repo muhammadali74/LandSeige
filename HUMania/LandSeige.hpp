@@ -16,8 +16,10 @@ class LandSeige
     vector<war_equipment*> enemy;
     vector<war_equipment*> user;
     budget cash;
+    
     //Create your list here
     public:
+    vector<int> keypress;
 
     ~LandSeige();
     void drawObjects(); 

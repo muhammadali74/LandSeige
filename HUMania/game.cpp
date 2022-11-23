@@ -135,7 +135,7 @@ void Game::run()
 		while (SDL_PollEvent(&e) != 0)
 		{
 			// User requests quit
-			if (e.type == SDL_QUIT)
+			if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE)
 			{
 				quit = true;
 			}
@@ -147,17 +147,46 @@ void Game::run()
 				SDL_GetMouseState(&xMouse, &yMouse);
 				landSeige.createUserEquipment(xMouse, yMouse);
 			}
+
+			if (e.type == SDL_KEYDOWN)
+			{
+				if (e.key.keysym.sym == SDLK_1)
+				{
+					landSeige.keypress.push_back(1);
+				}
+				else if (e.key.keysym.sym == SDLK_2)
+				{
+					landSeige.keypress.push_back(2);
+				}
+				else if (e.key.keysym.sym == SDLK_3)
+				{
+					landSeige.keypress.push_back(3);
+				}
+				else if (e.key.keysym.sym == SDLK_4)
+				{
+					landSeige.keypress.push_back(4);
+				}
+				else if (e.key.keysym.sym == SDLK_5)
+				{
+					landSeige.keypress.push_back(5);
+				}
+				else if (e.key.keysym.sym == SDLK_6)
+				{
+					landSeige.keypress.push_back(6);
+				}
+			}
+
+			SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
+			SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
+			//***********************draw the objects here********************
+
+			landSeige.drawObjects();
+
+			//****************************************************************
+			SDL_RenderPresent(Drawing::gRenderer); // displays the updated renderer
+
+			SDL_Delay(100); // causes sdl engine to delay for specified miliseconds
 		}
-
-		SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
-		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
-		//***********************draw the objects here********************
-
-		landSeige.drawObjects();
-
-		//****************************************************************
-		SDL_RenderPresent(Drawing::gRenderer); // displays the updated renderer
-
-		SDL_Delay(100); // causes sdl engine to delay for specified miliseconds
 	}
+
 }
