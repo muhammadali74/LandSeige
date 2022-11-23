@@ -25,8 +25,8 @@ void war_equipment::health_change(int impact)
 
 war_equipment::war_equipment(int x, int y)
 {
-    int xbox = 1441 / 7;
-    int ybox = 810 / 5;
+    int xbox = 1441 / 7.5;
+    int ybox = 810 / 5.25;
     srcRect = {0, 0, 0, 0};
 
     // it will display pigeon on x = 30, y = 40 location, the size of pigeon is 50 width, 60 height

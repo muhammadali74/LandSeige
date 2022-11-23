@@ -11,20 +11,23 @@ class ObjectCreator
     float ybox = height / rows;
 
 public:
-    war_equipment *getObject(int x, int y)
+    war_equipment *getObject()
     {
-        int colNum = (x / xbox) + 0.8;
-        int rowNum = (y / ybox);
-        int x_axis = colNum;
-        int y_axis = rowNum;
-        int random{(rand() % 6)};
+        // int colNum = (x / xbox) + 0.72;
+        // int rowNum = (y / ybox) + 0.2;
+        int colNum = (rand() % 7) + 1;
+        int rowNum{(rand() % 4) + 1};
+        // int x_axis = colNum * xbox - 155;
+        int x_axis = 1442;
+        int y_axis = rowNum * ybox - 41;
+
         // if ( random == 0)
         // {
-        //     return new Pigeon{x,y};
+        //     return new enemy1{x_axis,y_axis};
         // }
         // else if (random == 1)
         // {
-        //     return new butterfly{x,y};
+        //     return new enemy2{x_axis,y_axis};
         // }
     }
 
@@ -38,6 +41,7 @@ public:
         if (key == 1)
         {
             // return new generator{x_axis, y_axis};
+            cout << colNum << " " << rowNum << endl;
             cout << x_axis << " " << y_axis;
         }
         else if (key == 2)

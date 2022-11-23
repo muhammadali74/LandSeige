@@ -18,11 +18,16 @@ void LandSeige::drawObjects()
 }
 
 // creates new objects
-void LandSeige::createEnemyEquipment(int x, int y)
+void LandSeige::createEnemyEquipment()
 {
     // this allows random generaion of the bee, butterfly or pigeon
-    enemy.push_back(objCreator.getObject(x, y));
-    std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
+    Uint32 current_time = SDL_GetTicks(void);
+    int rtm = rand()%5
+    if (current_time%rtm ==0) {
+        enemy.push_back(objCreator.getObject());
+    }
+    
+    // std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
 }
 
 void LandSeige::createUserEquipment(int x, int y)
