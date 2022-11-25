@@ -68,7 +68,7 @@ bool Game::loadMedia()
 	// Loading success flag
 	bool success = true;
 
-	Drawing::assets = loadTexture("assets.png");
+	Drawing::assets = loadTexture("Artboard 1.png");
 	gTexture = loadTexture("abnew.png");
 	if (Drawing::assets == NULL || gTexture == NULL)
 	{
@@ -175,7 +175,7 @@ void Game::run()
 					landSeige.keypress.push_back(6);
 				}
 			}
-
+		}
 			SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
 			SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
 			//***********************draw the objects here********************
@@ -186,7 +186,7 @@ void Game::run()
 			SDL_RenderPresent(Drawing::gRenderer); // displays the updated renderer
 
 			SDL_Delay(100); // causes sdl engine to delay for specified miliseconds
-		}
+		
 	}
 
 }

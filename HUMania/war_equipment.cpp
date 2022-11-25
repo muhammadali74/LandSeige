@@ -40,3 +40,84 @@ void generator::move()
 {
     moverRect.x += 3;
 }
+tanker:: tanker(int x, int y, bool z): war_equipment{x,y}
+{
+    if (z==true)
+    {
+        srcRect = {461, 1826, 365, 270};
+    }
+    else
+    {
+        srcRect = {975, 1500, 443, 231};
+    }
+    
+    health = 750;
+    price = 800;
+}
+void tanker::move()
+{
+    moverRect.x += 4;
+    // for(int i{0}; i < 500; i++)
+    // {
+    //     if (i%2==0)
+    //     srcRect = {461, 1826, 365, 270};
+    //     else if (i%3==0)
+    //     srcRect = {2, 361, 159, 124};
+    //     else
+    //     srcRect = {7, 88, 155, 103};
+    // }
+}
+landMG::landMG(int x, int y): war_equipment{x,y}
+{
+    if (z==true)
+    {
+        srcRect = {511, 1449, 341, 315};
+    }
+    health = 550;
+    price = 600;
+}
+void landMG::move()
+{
+    
+};
+landmine::landmine(int x, int y): war_equipment{x,y}
+{
+    if (z==true)
+    {
+        srcRect = {};
+    }
+    health = 100;
+    price = 200;
+}
+void landmine::move()
+{
+
+};
+turret::turret(int x, int y): war_equipment{x,y}
+{
+    srcRect = {142, 1831, 249,214};
+
+    health = 300;
+    price = 300;
+}
+void turret::move()
+{
+
+};
+thunder::thunder(int x, int y, bool z): war_equipment{x,y}
+{
+    if (z==true)
+    {
+        srcRect = {902, 1809, 381, 267};
+    }
+    else
+    {
+        srcRect= {65, 2519, 486, 236};
+    }
+    health = 500;
+    price = 1000;
+}
+void thunder::move()
+{
+
+};

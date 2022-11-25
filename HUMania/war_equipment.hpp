@@ -27,12 +27,8 @@ class generator: public war_equipment
 };
 // class thunder: public war_equipment
 // {
-//     thunder()
-//     {
-//         // srcRect = {}
-//         health = 450;
-//         price = 1000;
-//     };
+//     public:
+
 // };
 // class landmine: public war_equipment
 // {
@@ -48,17 +44,27 @@ class generator: public war_equipment
 //     health = 300;
 //     price = 300;
 // };
-// class tanker: public war_equipment
-// {
-//     moverRect = 
-//     srcRect =
-//     health = 750;
-//     price = 800;
-// };
-// class landMG: public war_equipment
-// {
-//     moverRect = 
-//     srcRect =
-//     health = 550;
-//     price = 600;
-// };
+class tanker: public war_equipment
+{
+    public:
+    tanker(int, int, bool);
+    void move();
+};
+class landMG: public war_equipment
+{
+    public:
+    landMG(int, int);
+    void move();
+};
+class landmine: public war_equipment
+{
+    public:
+    landmine(int, int);
+    void move();
+};
+class turret: public war_equipment
+{
+    public:
+    turret(int, int);
+    void move();
+};

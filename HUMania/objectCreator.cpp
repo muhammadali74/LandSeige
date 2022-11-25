@@ -57,7 +57,7 @@ public:
         }
         else if (key == 4)
         {
-            // return new tank{x_axis, y_axis};
+            return new tanker{x_axis, y_axis, true};
             cout << x_axis, y_axis;
         }
         else if (key == 5)
@@ -67,7 +67,7 @@ public:
         }
         else if (key == 6)
         {
-            // return new landMG{x_axis, y_axis};
+            return new landMG{x_axis, y_axis};
             cout << x_axis, y_axis;
         }
     }
