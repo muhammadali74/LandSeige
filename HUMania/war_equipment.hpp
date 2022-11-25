@@ -8,7 +8,7 @@ class war_equipment
 protected:
     SDL_Rect srcRect, moverRect;
     int health, price, ammunition_capacity;
-    bool friend_or_foe;
+    bool z;
 
 public:
     war_equipment(int x, int y);
@@ -19,9 +19,9 @@ public:
     void health_change(int impact); // this is to delete bee when it exits the screen
 };
 
-class generator: public war_equipment
-{ 
-    public:
+class generator : public war_equipment
+{
+public:
     generator(int, int);
     void move();
 };
@@ -47,42 +47,49 @@ class generator: public war_equipment
 // };
 // class landmine: public war_equipment
 // {
-//     moverRect = 
+//     moverRect =
 //     srcRect =
 //     health = 100;
 //     price = 200;
 // };
 // class turret: public war_equipment
 // {
-//     moverRect = 
+//     moverRect =
 //     srcRect =
 //     health = 300;
 //     price = 300;
 // };
 // <<<<<<< Updated upstream
 // <<<<<<< Updated upstream
-class tanker: public war_equipment
+class tanker : public war_equipment
 {
-    public:
+public:
     tanker(int, int, bool);
     void move();
 };
-class landMG: public war_equipment
+class landMG : public war_equipment
 {
-    public:
+public:
     landMG(int, int);
     void move();
 };
-class landmine: public war_equipment
+class landmine : public war_equipment
 {
-    public:
+public:
     landmine(int, int);
     void move();
 };
-class turret: public war_equipment
+class turret : public war_equipment
 {
-    public:
+public:
     turret(int, int);
+    void move();
+};
+
+class thunder : public war_equipment
+{
+public:
+    thunder(int, int, bool);
     void move();
 };
 // =======
@@ -90,14 +97,14 @@ class turret: public war_equipment
 // >>>>>>> Stashed changes
 // class tanker: public war_equipment
 // {
-//     moverRect = 
+//     moverRect =
 //     srcRect =
 //     health = 750;
 //     price = 800;
 // };
 // class landMG: public war_equipment
 // {
-//     moverRect = 
+//     moverRect =
 //     srcRect =
 //     health = 550;
 //     price = 600;
