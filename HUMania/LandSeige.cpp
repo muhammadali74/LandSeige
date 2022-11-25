@@ -21,12 +21,13 @@ void LandSeige::drawObjects()
 void LandSeige::createEnemyEquipment()
 {
     // this allows random generaion of the bee, butterfly or pigeon
-    Uint32 current_time = SDL_GetTicks(void);
-    int rtm = rand()%5
-    if (current_time%rtm ==0) {
+    Uint32 current_time = SDL_GetTicks();
+    int rtm = rand() % 5;
+    if (current_time % rtm == 0)
+    {
         enemy.push_back(objCreator.getObject());
     }
-    
+
     // std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
 }
 

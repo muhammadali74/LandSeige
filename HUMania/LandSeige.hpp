@@ -23,8 +23,8 @@ public:
 
     ~LandSeige();
     void drawObjects();
-    void createUserEquipment();
-    void createEnemyEquipment(int, int);
+    void createUserEquipment(int, int);
+    void createEnemyEquipment();
     bool has_budget(int price);
     // create destructor which deletes all dynamic objects
 };
