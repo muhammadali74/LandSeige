@@ -40,9 +40,10 @@ public:
 
         if (key == 1)
         {
-            // return new generator{x_axis, y_axis};
             cout << colNum << " " << rowNum << endl;
             cout << x_axis << " " << y_axis;
+            return new generator{x_axis, y_axis};
+            
         }
         else if (key == 2)
         {

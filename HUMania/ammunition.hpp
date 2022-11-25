@@ -6,11 +6,8 @@ class ammunition
 {
     protected:
         SDL_Rect srcRect, moverRect;
-        string name;
-        int impact, travel_speed;
+        int impact;
         bool friend_or_foe;
-        float reload_time;
-
     public:
         // add the fly function here as well.
         void draw();
@@ -19,3 +16,19 @@ class ammunition
         friend class war_equipment;
     // may add other overloaded constructors here... 
 };
+// class bullet1 : public ammunition
+// {
+//     impact = 50;
+
+// };
+// class bullet : public ammunition
+// {
+
+//     impact = 25;
+
+// };
+// class bomb : public ammunition
+// {
+//     impact = 100;
+
+// };

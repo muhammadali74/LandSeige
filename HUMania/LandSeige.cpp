@@ -4,16 +4,19 @@
 void LandSeige::drawObjects()
 {
     // call draw functions of all the objects here
-    for (int i{0}; i < enemy.size(); i++)
+    for (int i{0}; i < user.size(); i++)
     {
-        if (enemy[i]->is_destroyed() == true) // checks if the bee hits the screen exit
+        user[i]->draw();
+        user[i]->move();
+        cout << "ya";
+        if (user[i]->is_destroyed() == true) // checks if the bee hits the screen exit
         {
-            delete enemy[i];                // deletes the bee, and the pointer becomes in a dangling state
-            enemy.erase(enemy.begin() + i); // erases that dangling pointer after freeing the memory
+            delete user[i];                // deletes the bee, and the pointer becomes in a dangling state
+            user.erase(user.begin() + i); // erases that dangling pointer after freeing the memory
             cout << "object of the bee that exited the screen has been destroyed" << endl;
         }
-        enemy[i]->draw();
-        enemy[i]->move();
+
+        
     }
 }
 
