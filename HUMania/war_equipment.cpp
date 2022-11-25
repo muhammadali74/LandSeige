@@ -39,6 +39,7 @@ generator::generator(int x, int y) : war_equipment{x,y}
 void generator::move()
 {
     moverRect.x += 3;
+<<<<<<< Updated upstream
 }
 tanker:: tanker(int x, int y, bool z): war_equipment{x,y}
 {
@@ -121,3 +122,6 @@ void thunder::move()
 {
 
 };
+=======
+}
+>>>>>>> Stashed changes

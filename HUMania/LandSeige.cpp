@@ -8,6 +8,10 @@ void LandSeige::drawObjects()
     {
         user[i]->draw();
         user[i]->move();
+<<<<<<< Updated upstream
+=======
+        cout << "ya";
+>>>>>>> Stashed changes
         if (user[i]->is_destroyed() == true) // checks if the bee hits the screen exit
         {
             delete user[i];                // deletes the bee, and the pointer becomes in a dangling state
