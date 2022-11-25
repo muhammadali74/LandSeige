@@ -9,6 +9,10 @@ void LandSeige::drawObjects()
         user[i]->draw();
         user[i]->move();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+        cout << "ya";
+>>>>>>> Stashed changes
 =======
         cout << "ya";
 >>>>>>> Stashed changes

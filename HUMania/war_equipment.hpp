@@ -28,15 +28,21 @@ class generator: public war_equipment
 // class thunder: public war_equipment
 // {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 //     public:
 
 =======
+=======
+>>>>>>> Stashed changes
 //     thunder()
 //     {
 //         // srcRect = {}
 //         health = 450;
 //         price = 1000;
 //     };
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 // };
 // class landmine: public war_equipment
@@ -53,6 +59,7 @@ class generator: public war_equipment
 //     health = 300;
 //     price = 300;
 // };
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 class tanker: public war_equipment
 {
@@ -79,6 +86,8 @@ class turret: public war_equipment
     void move();
 };
 =======
+=======
+>>>>>>> Stashed changes
 // class tanker: public war_equipment
 // {
 //     moverRect = 
@@ -92,5 +101,9 @@ class turret: public war_equipment
 //     srcRect =
 //     health = 550;
 //     price = 600;
+<<<<<<< Updated upstream
+// };
+>>>>>>> Stashed changes
+=======
 // };
 >>>>>>> Stashed changes
