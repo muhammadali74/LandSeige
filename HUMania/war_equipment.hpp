@@ -3,18 +3,21 @@
 #include "ammunition.hpp"
 using namespace std;
 #include <iostream>
+#include <vector>
 class war_equipment
 {
 protected:
     SDL_Rect srcRect, moverRect;
     int health, price, ammunition_capacity;
     bool z;
+    vector<ammunition*> amm;
 
 public:
     war_equipment(int x, int y);
     // ~war_equipment();
     void draw();
     virtual void move() = 0;
+    virtual void fire();
     bool is_destroyed();
     void health_change(int impact); // this is to delete bee when it exits the screen
 };
@@ -64,8 +67,10 @@ public:
 class tanker : public war_equipment
 {
 public:
+    void fire();
     tanker(int, int, bool);
     void move();
+    // void fire();
 };
 class landMG : public war_equipment
 {

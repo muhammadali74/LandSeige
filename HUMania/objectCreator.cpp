@@ -17,18 +17,19 @@ public:
         // int rowNum = (y / ybox) + 0.2;
         int colNum = (rand() % 7) + 1;
         int rowNum{(rand() % 4) + 1};
+        int random{(rand() % 2)};
         // int x_axis = colNum * xbox - 155;
         int x_axis = 1442;
         int y_axis = rowNum * ybox - 41;
 
-        // if ( random == 0)
-        // {
-        //     return new enemy1{x_axis,y_axis};
-        // }
-        // else if (random == 1)
-        // {
-        //     return new enemy2{x_axis,y_axis};
-        // }
+        if ( random == 0)
+        {
+            return new tanker{x_axis,y_axis, false};
+        }
+        else if (random == 1)
+        {
+            return new thunder{x_axis,y_axis, false};
+        }
     }
 
     war_equipment *getObject(int x, int y, int key)
@@ -47,12 +48,12 @@ public:
         }
         else if (key == 2)
         {
-            // return new turret{x_axis, y_axis};
+            return new turret{x_axis, y_axis};
             cout << x_axis, y_axis;
         }
         else if (key == 3)
         {
-            // return new landmine{x_axis, y_axis};
+            return new landmine{x_axis, y_axis};
             cout << x_axis, y_axis;
         }
         else if (key == 4)
@@ -62,7 +63,7 @@ public:
         }
         else if (key == 5)
         {
-            // return new thunder{x_axis, y_axis};
+            return new thunder{x_axis, y_axis, true};
             cout << x_axis, y_axis;
         }
         else if (key == 6)
