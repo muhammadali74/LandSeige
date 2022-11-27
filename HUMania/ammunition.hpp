@@ -10,17 +10,20 @@ class ammunition
         bool friend_or_foe;
     public:
         // add the fly function here as well.
+
         void draw();
         virtual void move() = 0;
         bool hit();
-        friend class war_equipment;
+        
     // may add other overloaded constructors here... 
 };
-// class bullet1 : public ammunition
-// {
-//     impact = 50;
+class bullet1 : public ammunition
+{
+    public:
+    bullet1(int, int, bool);
+    void move();
 
-// };
+};
 // class bullet : public ammunition
 // {
 

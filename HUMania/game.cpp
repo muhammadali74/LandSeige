@@ -146,8 +146,9 @@ void Game::run()
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse, &yMouse);
 				landSeige.createUserEquipment(xMouse, yMouse);
+				landSeige.createEnemyEquipment();
 			}
-
+			
 			if (e.type == SDL_KEYDOWN)
 			{
 				if (e.key.keysym.sym == SDLK_1)
@@ -175,6 +176,7 @@ void Game::run()
 					landSeige.keypress.push_back(6);
 				}
 			}
+			
 		}
 			SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
 			SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer

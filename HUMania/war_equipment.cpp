@@ -9,7 +9,7 @@ void war_equipment::draw()
 }
 bool war_equipment::is_destroyed() // this ensures that when fucntion is called for pigeon or butterfly there is no error because these two classes have no implementation of deleteCheck()
 {
-    if (health == 0)
+    if (health <= 0)
     {
         return true;
     }
@@ -55,6 +55,23 @@ tanker:: tanker(int x, int y, bool z): war_equipment{x,y}
     health = 750;
     price = 800;
 }
+void war_equipment::fire()
+{
+
+}
+void tanker::fire()
+{
+    if (rand()%10 == 4)
+    {
+        amm.push_back(new bullet1(moverRect.x+192, moverRect.y, true));
+    };
+    
+    for (int i{0}; i < amm.size(); i++)
+    {
+        amm[i]->move();
+        amm[i]->draw();
+    };
+}
 void tanker::move()
 {
     moverRect.x += 4;
@@ -80,7 +97,7 @@ landMG::landMG(int x, int y): war_equipment{x,y}
 void landMG::move()
 {
     
-};
+}
 landmine::landmine(int x, int y): war_equipment{x,y}
 {
     if (z==true)
@@ -93,7 +110,7 @@ landmine::landmine(int x, int y): war_equipment{x,y}
 void landmine::move()
 {
 
-};
+}
 turret::turret(int x, int y): war_equipment{x,y}
 {
     srcRect = {142, 1831, 249,214};
@@ -104,7 +121,7 @@ turret::turret(int x, int y): war_equipment{x,y}
 void turret::move()
 {
 
-};
+}
 thunder::thunder(int x, int y, bool z): war_equipment{x,y}
 {
     if (z==true)
@@ -121,5 +138,5 @@ thunder::thunder(int x, int y, bool z): war_equipment{x,y}
 void thunder::move()
 {
 
-};
+}
 
