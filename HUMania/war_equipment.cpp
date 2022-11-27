@@ -3,13 +3,15 @@
 #include "war_equipment.hpp"
 #pragma once
 
+int b{0};
+
 void war_equipment::draw()
 {
     SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
 }
 bool war_equipment::is_destroyed() // this ensures that when fucntion is called for pigeon or butterfly there is no error because these two classes have no implementation of deleteCheck()
 {
-    if (health <= 0)
+    if (health <= 0 )
     {
         return true;
     }
@@ -63,7 +65,7 @@ void tanker::fire()
 {
     if (rand()%10 == 4)
     {
-        amm.push_back(new bullet1(moverRect.x+192, moverRect.y, true));
+        amm.push_back(new bomb(moverRect.x+192, moverRect.y, true));
     };
     
     for (int i{0}; i < amm.size(); i++)
@@ -87,29 +89,57 @@ void tanker::move()
 }
 landMG::landMG(int x, int y): war_equipment{x,y}
 {
-    if (z==true)
-    {
-        srcRect = {511, 1449, 341, 315};
-    }
+    srcRect = {511, 1449, 341, 315};
     health = 550;
     price = 600;
+}
+void landMG::fire()
+{
+    if (b%5 ==0)
+    {
+        amm.push_back(new bullet1(moverRect.x+192, moverRect.y + 20, true));
+    };
+    b++;
+    for (int i{0}; i < amm.size(); i++)
+    {
+        amm[i]->move();
+        amm[i]->draw();
+    };
 }
 void landMG::move()
 {
     
 }
+
 landmine::landmine(int x, int y): war_equipment{x,y}
 {
-    if (z==true)
-    {
-        srcRect = {};
-    }
-    health = 100;
+    
+
+    srcRect = {1284, 2538, 298,221};
+    health = 150;
     price = 200;
 }
 void landmine::move()
 {
-
+    // k++;
+    health--;
+}
+void landmine::fire()
+{
+    if(health == 60)
+    {
+        srcRect={141,3133,326,285};
+        
+    }
+    else if (health ==50)
+    {
+        srcRect = {141,3427,326,285};
+    }
+    // if (k==140)
+    // {
+    //     health=0;
+    // }
+    
 }
 turret::turret(int x, int y): war_equipment{x,y}
 {

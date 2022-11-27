@@ -1,6 +1,4 @@
 
-<include 
-
 class budget
 {
     protected:
@@ -8,10 +6,13 @@ class budget
     float bonus;
 
     public:
-    budget();
-    getbudget();
-    increasebudget();
-    decreasebudget();
-    
+    budget()
+    {
+        amount = 1000;
+    };
+    // void getbudget();
+    // vod increasebudget();
+    // decreasebudget();
+    friend class LandSeige;
 
 };

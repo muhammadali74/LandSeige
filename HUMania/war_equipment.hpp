@@ -77,12 +77,16 @@ class landMG : public war_equipment
 public:
     landMG(int, int);
     void move();
+    void fire();
 };
 class landmine : public war_equipment
 {
+    int k{0};
 public:
     landmine(int, int);
     void move();
+    void fire();
+   
 };
 class turret : public war_equipment
 {

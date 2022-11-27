@@ -24,6 +24,13 @@ class bullet1 : public ammunition
     void move();
 
 };
+class bomb: public ammunition
+{
+    public:
+    bomb(int, int, bool);
+    void move();
+
+};
 // class bullet : public ammunition
 // {
 

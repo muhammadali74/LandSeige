@@ -18,26 +18,26 @@ void LandSeige::drawObjects()
 
         
     }
-    for (int i{0}; i < enemy.size(); i++)
-    {
-        enemy[i]->draw();
-        enemy[i]->move();
+    // for (int i{0}; i < enemy.size(); i++)
+    // {
+    //     enemy[i]->draw();
+    //     enemy[i]->move();
 
-        if (enemy[i]->is_destroyed() == true) // checks if the bee hits the screen exit
-        {
-            delete enemy[i];                // deletes the bee, and the pointer becomes in a dangling state
-            enemy.erase(enemy.begin() + i); // erases that dangling pointer after freeing the memory
-            cout << "object of the bee that exited the screen has been destroyed" << endl;
-        }
+    //     if (enemy[i]->is_destroyed() == true) // checks if the bee hits the screen exit
+    //     {
+    //         delete enemy[i];                // deletes the bee, and the pointer becomes in a dangling state
+    //         enemy.erase(enemy.begin() + i); // erases that dangling pointer after freeing the memory
+    //         cout << "object of the bee that exited the screen has been destroyed" << endl;
+    //     }
 
         
-    }
+    // }
 }
 
 // creates new objects
 void LandSeige::createEnemyEquipment()
 {
-    this allows random generaion of the bee, butterfly or pigeon
+    // this allows random generaion of the bee, butterfly or pigeon
     Uint32 current_time = SDL_GetTicks();
     int rtm = rand() % 5;
      
@@ -46,7 +46,7 @@ void LandSeige::createEnemyEquipment()
         enemy.push_back(objCreator.getObject());
     }
     rtm++;
-    std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
+    // std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
 }
 
 void LandSeige::createUserEquipment(int x, int y)

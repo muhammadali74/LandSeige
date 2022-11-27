@@ -146,7 +146,7 @@ void Game::run()
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse, &yMouse);
 				landSeige.createUserEquipment(xMouse, yMouse);
-				landSeige.createEnemyEquipment();
+				// landSeige.createEnemyEquipment();
 			}
 			
 			if (e.type == SDL_KEYDOWN)
