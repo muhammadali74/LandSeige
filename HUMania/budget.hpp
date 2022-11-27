@@ -1,8 +1,17 @@
 
+<include 
+
 class budget
 {
     protected:
     int amount;
     float bonus;
-    friend class LandSeige;
+
+    public:
+    budget();
+    getbudget();
+    increasebudget();
+    decreasebudget();
+    
+
 };
