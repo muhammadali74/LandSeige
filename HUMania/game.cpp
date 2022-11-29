@@ -148,7 +148,7 @@ void Game::run()
 				landSeige.createUserEquipment(xMouse, yMouse);
 				// landSeige.createEnemyEquipment();
 			}
-			
+
 			if (e.type == SDL_KEYDOWN)
 			{
 				if (e.key.keysym.sym == SDLK_1)
@@ -176,19 +176,20 @@ void Game::run()
 					landSeige.keypress.push_back(6);
 				}
 			}
-			
 		}
-			SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
-			SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
-			//***********************draw the objects here********************
+		SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
+		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
+		//***********************draw the objects here********************
+		// Uint64 current_time = SDL_GetTicks();
+		// if (SDL_GetTicks() % 40 == 0)
+		// {
+		// 	landSeige.createEnemyEquipment();
+		// }
+		landSeige.drawObjects();
 
-			landSeige.drawObjects();
+		//****************************************************************
+		SDL_RenderPresent(Drawing::gRenderer); // displays the updated renderer
 
-			//****************************************************************
-			SDL_RenderPresent(Drawing::gRenderer); // displays the updated renderer
-
-			SDL_Delay(100); // causes sdl engine to delay for specified miliseconds
-		
+		SDL_Delay(100); // causes sdl engine to delay for specified miliseconds
 	}
-
 }
