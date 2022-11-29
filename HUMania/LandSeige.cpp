@@ -53,7 +53,11 @@ void LandSeige::createUserEquipment(int x, int y)
 {
     int key = keypress.back();
     keypress.pop_back();
-    user.push_back(objCreator.getObject(x, y, key));
+    war_equipment *temp = objCreator.getObject(x, y, key);
+    if (temp != nullptr)
+    {
+        user.push_back(temp);
+    }
     std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
 }
 

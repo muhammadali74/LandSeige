@@ -1,9 +1,10 @@
-
 #include "war_equipment.hpp"
 #pragma once
+#include <vector>
 
 class ObjectCreator
 {
+    bool occupied[4][7];
     const float rows = 5.25, cols = 7.5;
     // char *grid = new char[rows * cols];
     const float width = 1440, height = 810;
@@ -18,6 +19,7 @@ public:
         int colNum = (rand() % 7) + 1;
         int rowNum{(rand() % 4) + 1};
         int random{(rand() % 2)};
+
         // int x_axis = colNum * xbox - 155;
         int x_axis = 300;
         int y_axis = rowNum * ybox - 41;
@@ -38,37 +40,52 @@ public:
         int rowNum = (y / ybox) + 0.2;
         int x_axis = colNum * xbox - 155;
         int y_axis = rowNum * ybox - 41;
+        cout << colNum << " " << rowNum << endl;
 
-        if (key == 1)
+        if (occupied[rowNum - 1][colNum - 1] == false)
         {
-            cout << colNum << " " << rowNum << endl;
-            cout << x_axis << " " << y_axis;
-            return new generator{x_axis, y_axis};
+
+            if (key == 1)
+            {
+                cout << colNum << " " << rowNum << endl;
+                cout << x_axis << " " << y_axis;
+                occupied[rowNum - 1][colNum - 1] = true;
+                return new generator{x_axis, y_axis};
+            }
+            else if (key == 2)
+            {
+                occupied[rowNum - 1][colNum - 1] = true;
+                return new turret{x_axis, y_axis};
+                cout << x_axis, y_axis;
+            }
+            else if (key == 3)
+            {
+                occupied[rowNum - 1][colNum - 1] = true;
+                return new landmine{x_axis, y_axis};
+                cout << x_axis, y_axis;
+            }
+            else if (key == 4)
+            {
+                occupied[rowNum - 1][colNum - 1] = true;
+                return new tanker{x_axis, y_axis, true};
+                cout << x_axis, y_axis;
+            }
+            else if (key == 5)
+            {
+                occupied[rowNum - 1][colNum - 1] = true;
+                return new thunder{x_axis, y_axis, true};
+                cout << x_axis, y_axis;
+            }
+            else if (key == 6)
+            {
+                occupied[rowNum - 1][colNum - 1] = true;
+                return new landMG{x_axis, y_axis};
+                cout << x_axis, y_axis;
+            }
         }
-        else if (key == 2)
+        else
         {
-            return new turret{x_axis, y_axis};
-            cout << x_axis, y_axis;
-        }
-        else if (key == 3)
-        {
-            return new landmine{x_axis, y_axis};
-            cout << x_axis, y_axis;
-        }
-        else if (key == 4)
-        {
-            return new tanker{x_axis, y_axis, true};
-            cout << x_axis, y_axis;
-        }
-        else if (key == 5)
-        {
-            return new thunder{x_axis, y_axis, true};
-            cout << x_axis, y_axis;
-        }
-        else if (key == 6)
-        {
-            return new landMG{x_axis, y_axis};
-            cout << x_axis, y_axis;
+            return nullptr;
         }
     }
 };
