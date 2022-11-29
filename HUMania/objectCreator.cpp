@@ -19,16 +19,16 @@ public:
         int rowNum{(rand() % 4) + 1};
         int random{(rand() % 2)};
         // int x_axis = colNum * xbox - 155;
-        int x_axis = 1442;
+        int x_axis = 300;
         int y_axis = rowNum * ybox - 41;
 
-        if ( random == 0)
+        if (random == 0)
         {
-            return new tanker{x_axis,y_axis, false};
+            return new tanker{x_axis, y_axis, false};
         }
         else if (random == 1)
         {
-            return new thunder{x_axis,y_axis, false};
+            return new thunder{x_axis, y_axis, false};
         }
     }
 
@@ -44,7 +44,6 @@ public:
             cout << colNum << " " << rowNum << endl;
             cout << x_axis << " " << y_axis;
             return new generator{x_axis, y_axis};
-            
         }
         else if (key == 2)
         {
