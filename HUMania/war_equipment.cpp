@@ -135,10 +135,6 @@ void landmine::fire()
     {
         srcRect = {141,3427,326,285};
     }
-    // if (k==140)
-    // {
-    //     health=0;
-    // }
     
 }
 turret::turret(int x, int y): war_equipment{x,y}
