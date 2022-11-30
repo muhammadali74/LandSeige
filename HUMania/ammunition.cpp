@@ -28,11 +28,11 @@ void bullet1::move(bool foe)
 {
     if(foe)
     {
-         moverRect.x+=12;
+         moverRect.x+=14;
     }
     else
     {
-         moverRect.x-=12;
+         moverRect.x-=14;
     }
     // int animation = moverRect.x % 3;
     // if (animation ==0)
@@ -54,7 +54,7 @@ bomb::bomb(int x, int y, bool z)
     impact = 50;
     if (z)
     {
-        srcRect = {1597, 3545,234,156};
+        srcRect ={1592, 3758, 239, 120};
     }
     else
     {
@@ -68,11 +68,15 @@ void bomb::move(bool foe)
 {
     if (foe)
     {
-        moverRect.x+=8;
+        moverRect.x+=15;
+        // if (moverRect.x % 8 == 2)
+        // {
+        //     srcRect = {1592, 3758, 239, 120};
+        // }
     }
     else
     {
-        moverRect.x-=8;
+        moverRect.x-=15;
     }
     // int animation = moverRect.x % 3;
     // if (animation ==0)

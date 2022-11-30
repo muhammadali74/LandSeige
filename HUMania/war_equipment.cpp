@@ -31,7 +31,6 @@ war_equipment::war_equipment(int x, int y)
 {
     int xbox = 1441 / 7.5;
     int ybox = 810 / 5.25;
-    // it will display pigeon on x = 30, y = 40 location, the size of pigeon is 50 width, 60 height
     moverRect = {x, y, xbox - 10, ybox - 10};
 }
 
@@ -119,7 +118,8 @@ landMG::landMG(int x, int y, budget &b) : war_equipment{x, y}
 }
 void landMG::fire(bool foe)
 {
-    // if (b % 5 == 0)
+    // if 
+    // (b % 5 == 0)
     // {
     if (SDL_GetTicks() % 80 == 0 || SDL_GetTicks() % 80 == 5 || SDL_GetTicks() % 80 == 10 || SDL_GetTicks() % 80 == 15)
     {
@@ -147,8 +147,6 @@ landmine::landmine(int x, int y, budget &b) : war_equipment{x, y}
 }
 void landmine::move()
 {
-    // k++;
-    
 }
 void landmine::fire(bool foe)
 {
