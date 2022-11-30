@@ -50,11 +50,10 @@ void generator::move()
     // moverRect.x += 3;
 }
 
-void generator::fire()
+void generator::fire(bool foe)
 {
 
-    if ((SDL_GetTicks() - creation_time) % 7000 >= 0 && (SDL_GetTicks() - creation_time) % 70
-    00 <= 10)
+    if ((SDL_GetTicks() - creation_time) % 7000 >= 0 && (SDL_GetTicks() - creation_time) % 7000 <= 10)
     {
         cashmod->increasebudget(200);
     }
@@ -75,25 +74,32 @@ tanker::tanker(int x, int y, bool z, budget &b) : war_equipment{x, y}
     health = 750;
     price = 800;
 }
-void war_equipment::fire()
+void war_equipment::fire(bool foe)
 {
 }
-void tanker::fire()
+void tanker::fire(bool foe)
 {
     if (rand() % 10 == 4)
     {
-        amm.push_back(new bomb(moverRect.x + 192, moverRect.y, true));
+        if(foe)
+        {
+            amm.push_back(new bomb(moverRect.x + 145, moverRect.y + 15, foe));
+        }
+        else
+        {
+            amm.push_back(new bomb(moverRect.x - 20, moverRect.y +10, foe));
+        }
     };
 
     for (int i{0}; i < amm.size(); i++)
     {
-        amm[i]->move();
+        amm[i]->move(foe);
         amm[i]->draw();
     };
 }
 void tanker::move()
 {
-    moverRect.x += 4;
+    moverRect.x -= 1;
     // for(int i{0}; i < 500; i++)
     // {
     //     if (i%2==0)
@@ -111,20 +117,20 @@ landMG::landMG(int x, int y, budget &b) : war_equipment{x, y}
     price = 600;
     b.decreasebudget(price);
 }
-void landMG::fire()
+void landMG::fire(bool foe)
 {
     // if (b % 5 == 0)
     // {
     if (SDL_GetTicks() % 80 == 0 || SDL_GetTicks() % 80 == 5 || SDL_GetTicks() % 80 == 10 || SDL_GetTicks() % 80 == 15)
     {
-        amm.push_back(new bullet1(moverRect.x + 192, moverRect.y + 20, true));
+        amm.push_back(new bullet1(moverRect.x + 192, moverRect.y + 20, foe));
     }
 
     b++;
     for (int i{0}; i < amm.size(); i++)
     {
         amm[i]->draw();
-        amm[i]->move();
+        amm[i]->move(foe);
     }
 }
 void landMG::move()
@@ -142,10 +148,11 @@ landmine::landmine(int x, int y, budget &b) : war_equipment{x, y}
 void landmine::move()
 {
     // k++;
-    health--;
+    
 }
-void landmine::fire()
+void landmine::fire(bool foe)
 {
+    health--;
     if (health == 60)
     {
         srcRect = {141, 3133, 326, 285};
@@ -165,6 +172,7 @@ turret::turret(int x, int y, budget &b) : war_equipment{x, y}
 }
 void turret::move()
 {
+    moverRect.x-=1;
 }
 thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
 {

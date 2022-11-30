@@ -12,7 +12,7 @@ class ammunition
         // add the fly function here as well.
 
         void draw();
-        virtual void move() = 0;
+        virtual void move(bool) = 0;
         bool hit();
         
     // may add other overloaded constructors here... 
@@ -21,14 +21,14 @@ class bullet1 : public ammunition
 {
     public:
     bullet1(int, int, bool);
-    void move();
+    void move(bool);
 
 };
 class bomb: public ammunition
 {
     public:
     bomb(int, int, bool);
-    void move();
+    void move(bool);
 
 };
 // class bullet : public ammunition

@@ -6,10 +6,9 @@ void LandSeige::drawObjects()
     // call draw functions of all the objects here
     for (int i{0}; i < user.size(); i++)
     {
-        user[i]->move();
         user[i]->draw();
 
-        user[i]->fire();
+        user[i]->fire(true);
 
         if (user[i]->is_destroyed() == true)
         {
@@ -24,7 +23,7 @@ void LandSeige::drawObjects()
         {
             enemy[i]->draw();
             enemy[i]->move();
-
+            enemy[i]->fire(false);
             if (enemy[i]->is_destroyed() == true) // checks if the bee hits the screen exit
             {
                 delete enemy[i];                // deletes the bee, and the pointer becomes in a dangling state

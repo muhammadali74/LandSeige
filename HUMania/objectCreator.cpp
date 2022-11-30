@@ -21,7 +21,7 @@ public:
         int random{(rand() % 2)};
 
         // int x_axis = colNum * xbox - 155;
-        int x_axis = 300;
+        int x_axis = 1442;
         int y_axis = rowNum * ybox - 41;
 
         if (random == 0)

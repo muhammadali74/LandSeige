@@ -180,11 +180,11 @@ void Game::run()
 		SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
 		//***********************draw the objects here********************
-		// Uint64 current_time = SDL_GetTicks();
-		// if (SDL_GetTicks() % 40 == 0)
-		// {
-		// 	landSeige.createEnemyEquipment();
-		// }
+		Uint64 current_time = SDL_GetTicks();
+		if (SDL_GetTicks() % 40 == 0)
+		{
+			landSeige.createEnemyEquipment();
+		}
 		landSeige.drawObjects();
 
 		//****************************************************************
