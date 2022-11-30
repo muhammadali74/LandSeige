@@ -8,7 +8,9 @@ void LandSeige::drawObjects()
     {
         user[i]->move();
         user[i]->draw();
+
         user[i]->fire();
+
         if (user[i]->is_destroyed() == true)
         {
             delete user[i];
@@ -42,7 +44,7 @@ void LandSeige::createEnemyEquipment()
 
     if (rtm <= 3)
     {
-        enemy.push_back(objCreator.getObject());
+        enemy.push_back(objCreator.getObject(cash));
         cout << "enemy created" << endl;
     }
     // rtm++;
@@ -53,7 +55,7 @@ void LandSeige::createUserEquipment(int x, int y)
 {
     int key = keypress.back();
     keypress.pop_back();
-    war_equipment *temp = objCreator.getObject(x, y, key);
+    war_equipment *temp = objCreator.getObject(x, y, key, cash);
     if (temp != nullptr)
     {
         user.push_back(temp);
@@ -76,7 +78,7 @@ LandSeige::~LandSeige() // this destructor ensures that all the memor that was d
 
 bool LandSeige::has_budget(int price)
 {
-    if (cash.amount >= price)
+    if (cash.getbudget() >= price)
     {
         return true;
     }

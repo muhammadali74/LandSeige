@@ -12,7 +12,7 @@ class ObjectCreator
     float ybox = height / rows;
 
 public:
-    war_equipment *getObject()
+    war_equipment *getObject(budget &b)
     {
         // int colNum = (x / xbox) + 0.72;
         // int rowNum = (y / ybox) + 0.2;
@@ -26,15 +26,15 @@ public:
 
         if (random == 0)
         {
-            return new tanker{x_axis, y_axis, false};
+            return new tanker{x_axis, y_axis, false, b};
         }
         else if (random == 1)
         {
-            return new thunder{x_axis, y_axis, false};
+            return new thunder{x_axis, y_axis, false, b};
         }
     }
 
-    war_equipment *getObject(int x, int y, int key)
+    war_equipment *getObject(int x, int y, int key, budget &cash)
     {
         int colNum = (x / xbox) + 0.72;
         int rowNum = (y / ybox) + 0.2;
@@ -49,37 +49,89 @@ public:
             {
                 cout << colNum << " " << rowNum << endl;
                 cout << x_axis << " " << y_axis;
-                occupied[rowNum - 1][colNum - 1] = true;
-                return new generator{x_axis, y_axis};
+
+                if (cash.has_budget(300) == true)
+                {
+                    occupied[rowNum - 1][colNum - 1] = true;
+                    return new generator{x_axis, y_axis, cash};
+                }
+                else
+                {
+                    cout << "You don't have enough money to buy this" << endl;
+                    return nullptr;
+                }
             }
             else if (key == 2)
             {
-                occupied[rowNum - 1][colNum - 1] = true;
-                return new turret{x_axis, y_axis};
+
+                if (cash.has_budget(300) == true)
+                {
+                    occupied[rowNum - 1][colNum - 1] = true;
+                    return new turret{x_axis, y_axis, cash};
+                }
+                else
+                {
+                    cout << "You don't have enough money to buy this" << endl;
+                    return nullptr;
+                }
+
                 cout << x_axis, y_axis;
             }
             else if (key == 3)
             {
-                occupied[rowNum - 1][colNum - 1] = true;
-                return new landmine{x_axis, y_axis};
+
+                if (cash.has_budget(200) == true)
+                {
+                    occupied[rowNum - 1][colNum - 1] = true;
+                    return new landmine{x_axis, y_axis, cash};
+                }
+                else
+                {
+                    cout << "You don't have enough money to buy this" << endl;
+                    return nullptr;
+                }
                 cout << x_axis, y_axis;
             }
             else if (key == 4)
             {
-                occupied[rowNum - 1][colNum - 1] = true;
-                return new tanker{x_axis, y_axis, true};
+                if (cash.has_budget(800) == true)
+                {
+                    occupied[rowNum - 1][colNum - 1] = true;
+                    return new tanker{x_axis, y_axis, true, cash};
+                }
+                else
+                {
+                    cout << "You don't have enough money to buy this" << endl;
+                    return nullptr;
+                }
                 cout << x_axis, y_axis;
             }
             else if (key == 5)
             {
-                occupied[rowNum - 1][colNum - 1] = true;
-                return new thunder{x_axis, y_axis, true};
+                if (cash.has_budget(1000) == true)
+                {
+                    occupied[rowNum - 1][colNum - 1] = true;
+                    return new thunder{x_axis, y_axis, true, cash};
+                }
+                else
+                {
+                    cout << "You don't have enough money to buy this" << endl;
+                    return nullptr;
+                }
                 cout << x_axis, y_axis;
             }
             else if (key == 6)
             {
-                occupied[rowNum - 1][colNum - 1] = true;
-                return new landMG{x_axis, y_axis};
+                if (cash.has_budget(600) == true)
+                {
+                    occupied[rowNum - 1][colNum - 1] = true;
+                    return new landMG{x_axis, y_axis, cash};
+                }
+                else
+                {
+                    cout << "You don't have enough money to buy this" << endl;
+                    return nullptr;
+                }
                 cout << x_axis, y_axis;
             }
         }

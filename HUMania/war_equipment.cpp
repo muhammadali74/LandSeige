@@ -1,9 +1,11 @@
 #include "SDL.h"
 #include "drawing.hpp"
 #include "war_equipment.hpp"
+#include "budget.hpp"
 #pragma once
 
 int b{0};
+int c{0};
 
 void war_equipment::draw()
 {
@@ -32,21 +34,38 @@ war_equipment::war_equipment(int x, int y)
     // it will display pigeon on x = 30, y = 40 location, the size of pigeon is 50 width, 60 height
     moverRect = {x, y, xbox - 10, ybox - 10};
 }
-generator::generator(int x, int y) : war_equipment{x, y}
+
+// child classes start here
+
+generator::generator(int x, int y, budget &b) : war_equipment{x, y}
 {
     health = 500;
     price = 300;
     srcRect = {80, 1450, 348, 308};
+    b.decreasebudget(price);
+    cashmod = &b;
 }
 void generator::move()
 {
-    moverRect.x += 3;
+    // moverRect.x += 3;
 }
-tanker::tanker(int x, int y, bool z) : war_equipment{x, y}
+
+void generator::fire()
+{
+
+    if ((SDL_GetTicks() - creation_time) % 7000 >= 0 && (SDL_GetTicks() - creation_time) % 70
+    00 <= 10)
+    {
+        cashmod->increasebudget(200);
+    }
+}
+
+tanker::tanker(int x, int y, bool z, budget &b) : war_equipment{x, y}
 {
     if (z == true)
     {
         srcRect = {461, 1826, 365, 270};
+        b.decreasebudget(price);
     }
     else
     {
@@ -85,35 +104,40 @@ void tanker::move()
     //     srcRect = {7, 88, 155, 103};
     // }
 }
-landMG::landMG(int x, int y) : war_equipment{x, y}
+landMG::landMG(int x, int y, budget &b) : war_equipment{x, y}
 {
     srcRect = {511, 1449, 341, 315};
     health = 550;
     price = 600;
+    b.decreasebudget(price);
 }
 void landMG::fire()
 {
-    if (b % 5 == 0)
+    // if (b % 5 == 0)
+    // {
+    if (SDL_GetTicks() % 80 == 0 || SDL_GetTicks() % 80 == 5 || SDL_GetTicks() % 80 == 10 || SDL_GetTicks() % 80 == 15)
     {
         amm.push_back(new bullet1(moverRect.x + 192, moverRect.y + 20, true));
-    };
+    }
+
     b++;
     for (int i{0}; i < amm.size(); i++)
     {
-        amm[i]->move();
         amm[i]->draw();
-    };
+        amm[i]->move();
+    }
 }
 void landMG::move()
 {
 }
 
-landmine::landmine(int x, int y) : war_equipment{x, y}
+landmine::landmine(int x, int y, budget &b) : war_equipment{x, y}
 {
 
     srcRect = {1284, 2538, 298, 221};
     health = 150;
     price = 200;
+    b.decreasebudget(price);
 }
 void landmine::move()
 {
@@ -131,21 +155,23 @@ void landmine::fire()
         srcRect = {141, 3427, 326, 285};
     }
 }
-turret::turret(int x, int y) : war_equipment{x, y}
+turret::turret(int x, int y, budget &b) : war_equipment{x, y}
 {
     srcRect = {142, 1831, 249, 214};
 
     health = 300;
     price = 300;
+    b.decreasebudget(price);
 }
 void turret::move()
 {
 }
-thunder::thunder(int x, int y, bool z) : war_equipment{x, y}
+thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
 {
     if (z == true)
     {
         srcRect = {902, 1809, 381, 267};
+        b.decreasebudget(price);
     }
     else
     {

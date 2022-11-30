@@ -4,15 +4,17 @@
 using namespace std;
 #include <iostream>
 #include <vector>
+#include "budget.hpp"
 class war_equipment
 {
 protected:
     SDL_Rect srcRect, moverRect;
     int health, price, ammunition_capacity;
     bool z;
-    vector<ammunition*> amm;
+    vector<ammunition *> amm;
 
 public:
+    Uint64 creation_time = SDL_GetTicks();
     war_equipment(int x, int y);
     // ~war_equipment();
     void draw();
@@ -24,9 +26,12 @@ public:
 
 class generator : public war_equipment
 {
+    budget *cashmod = nullptr;
+
 public:
-    generator(int, int);
+    generator(int, int, budget &);
     void move();
+    void fire();
 };
 // class thunder: public war_equipment
 // {
@@ -68,37 +73,37 @@ class tanker : public war_equipment
 {
 public:
     void fire();
-    tanker(int, int, bool);
+    tanker(int, int, bool, budget &);
     void move();
     // void fire();
 };
 class landMG : public war_equipment
 {
 public:
-    landMG(int, int);
+    landMG(int, int, budget &);
     void move();
     void fire();
 };
 class landmine : public war_equipment
 {
     int k{0};
+
 public:
-    landmine(int, int);
+    landmine(int, int, budget &);
     void move();
     void fire();
-   
 };
 class turret : public war_equipment
 {
 public:
-    turret(int, int);
+    turret(int, int, budget &);
     void move();
 };
 
 class thunder : public war_equipment
 {
 public:
-    thunder(int, int, bool);
+    thunder(int, int, bool, budget &);
     void move();
 };
 // =======
