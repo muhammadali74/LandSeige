@@ -6,11 +6,10 @@ void LandSeige::drawObjects()
     // call draw functions of all the objects here
     for (int i{0}; i < user.size(); i++)
     {
-        user[i]->move();
         user[i]->draw();
         if (objCreator.should_fire(user[i]->get_moverRect().y) == true || user[i]->name == "generator")
         {
-            user[i]->fire();
+            user[i]->fire(true);
         }
         for (int j{0}; j < enemy.size(); j++)
         {
@@ -68,6 +67,7 @@ void LandSeige::drawObjects()
                 }
             }
 
+            enemy[i]->fire(false);
             if (enemy[i]->is_destroyed() == true) // checks if the bee hits the screen exit
             {
                 objCreator.free_grid(enemy[i]->get_moverRect().x, enemy[i]->get_moverRect().y);

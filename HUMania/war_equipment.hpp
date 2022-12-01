@@ -20,7 +20,7 @@ public:
     // ~war_equipment();
     void draw();
     virtual void move() = 0;
-    virtual void fire();
+    virtual void fire(bool);
     virtual void fire_bullet();
     bool is_destroyed();
     void health_change(int impact); // this is to delete bee when it exits the screen
@@ -35,7 +35,7 @@ class generator : public war_equipment
 public:
     generator(int, int, budget &);
     void move();
-    void fire();
+    void fire(bool);
 };
 // class thunder: public war_equipment
 // {
@@ -76,7 +76,7 @@ public:
 class tanker : public war_equipment
 {
 public:
-    void fire();
+    void fire(bool);
     tanker(int, int, bool, budget &);
     void move();
     // void fire();
@@ -86,7 +86,7 @@ class landMG : public war_equipment
 public:
     landMG(int, int, budget &);
     void move();
-    void fire();
+    void fire(bool);
     void fire_bullet();
 };
 class landmine : public war_equipment
@@ -96,7 +96,7 @@ class landmine : public war_equipment
 public:
     landmine(int, int, budget &);
     void move();
-    void fire();
+    void fire(bool);
 };
 class turret : public war_equipment
 {
