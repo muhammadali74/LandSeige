@@ -50,7 +50,7 @@ generator::generator(int x, int y, budget &b) : war_equipment{x, y}
     health = 500;
     price = 300;
     srcRect = {80, 1450, 348, 308};
-    b.decreasebudget(price);
+    b - price;
     cashmod = &b;
     name = "generator";
 }
@@ -64,7 +64,7 @@ void generator::fire(bool foe)
 
     if ((SDL_GetTicks() - creation_time) % 1000 >= 0 && (SDL_GetTicks() - creation_time) % 1000 <= 10)
     {
-        cashmod->increasebudget(200);
+        *(cashmod)+200;
     }
 }
 
@@ -73,7 +73,7 @@ tanker::tanker(int x, int y, bool z, budget &b) : war_equipment{x, y}
     if (z == true)
     {
         srcRect = {461, 1826, 365, 270};
-        b.decreasebudget(price);
+        b - price;
     }
     else
     {
@@ -83,6 +83,11 @@ tanker::tanker(int x, int y, bool z, budget &b) : war_equipment{x, y}
     health = 750;
     price = 800;
 }
+void war_equipment::destruction()
+{
+    srcRect= {141, 3133, 326, 285};
+    cout << "YAY";
+};
 void war_equipment::fire(bool foe)
 {
 }
@@ -114,6 +119,8 @@ void tanker::fire(bool foe)
 void tanker::move()
 {
     moverRect.x -= 1;
+    
+    
     // for(int i{0}; i < 500; i++)
     // {
     //     if (i%2==0)
@@ -129,7 +136,7 @@ landMG::landMG(int x, int y, budget &b) : war_equipment{x, y}
     srcRect = {511, 1449, 341, 315};
     health = 550;
     price = 600;
-    b.decreasebudget(price);
+    b - price;
 }
 void landMG::fire(bool foe)
 {
@@ -163,7 +170,7 @@ landmine::landmine(int x, int y, budget &b) : war_equipment{x, y}
     srcRect = {1284, 2538, 298, 221};
     health = 150;
     price = 200;
-    b.decreasebudget(price);
+    b - price;
 }
 void landmine::move()
 {
@@ -186,7 +193,7 @@ turret::turret(int x, int y, budget &b) : war_equipment{x, y}
 
     health = 300;
     price = 300;
-    b.decreasebudget(price);
+    b - price;
 }
 void turret::move()
 {
@@ -197,7 +204,7 @@ thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
     if (z == true)
     {
         srcRect = {902, 1809, 381, 267};
-        b.decreasebudget(price);
+        b - price;
     }
     else
     {
@@ -208,8 +215,39 @@ thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
 }
 void thunder::move()
 {
-    if (z == false)
+    moverRect.x -= 2;
+}
+void thunder::fire(bool foe)
+{
+    if (rand() % 50 == 4)
     {
-        moverRect.x -= 2;
-    }
+        if (foe)
+        {
+            amm.push_back(new bullet1(moverRect.x + 145, moverRect.y + 15, foe));
+        }
+        else
+        {
+            amm.push_back(new bullet1(moverRect.x - 20, moverRect.y + 52, foe));
+        }
+    };
+
+    for (int i{0}; i < amm.size(); i++)
+    {
+        amm[i]->move(foe);
+        amm[i]->draw();
+    };
+}
+void turret::fire(bool foe)
+{
+    if (rand() % 50 == 4)
+    {
+        amm.push_back(new bullet1(moverRect.x + 145, moverRect.y + 45, foe));
+        
+    };
+
+    for (int i{0}; i < amm.size(); i++)
+    {
+        amm[i]->move(foe);
+        amm[i]->draw();
+    };
 }

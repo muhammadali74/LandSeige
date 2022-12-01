@@ -16,7 +16,7 @@ class ammunition
         bool hit();
         int get_Damage();
         SDL_Rect get_moverRect() const;
-        
+        void set_srcRect(int) ;
     // may add other overloaded constructors here... 
 };
 class bullet1 : public ammunition

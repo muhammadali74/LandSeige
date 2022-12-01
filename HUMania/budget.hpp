@@ -15,5 +15,14 @@ public:
     void increasebudget(int);
     void decreasebudget(int);
     bool has_budget(int);
+    void operator +(int money)
+    {
+        amount += money;
+    }
+    void operator -(int money)
+    {
+        amount -= money;
+        cout << "sub" <<endl;
+    }
     // friend class LandSeige;
 };
