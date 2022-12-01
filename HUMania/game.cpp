@@ -72,7 +72,7 @@ bool Game::loadMedia()
 	bool success = true;
 
 	Drawing::assets = loadTexture("Artboard 1.png");
-	gTexture = loadTexture("sdlDrawing.png");
+	gTexture = loadTexture("main.png");
 	if (Drawing::assets == NULL || gTexture == NULL)
 	{
 		printf("Unable to run due to error: %s\n", SDL_GetError());
@@ -128,20 +128,39 @@ SDL_Texture *Game::loadTexture(std::string path)
 void Game::run()
 {
 	bool quit = false;
+	bool gameScreen =false;
 	SDL_Event e;
-
+	
 	LandSeige landSeige{};
 	
 	while (!quit && (landSeige.has_lost() == false))
 	{
-		if (e.key.keysym.sym == SDLK_SPACE)
+		if(SDL_GetTicks()>5000 && begin == false)
 		{
-			cout << "yay";
+			gTexture = loadTexture("Artboard1.png");
+
+			gameScreen = true;
+		}
+		if(e.type == SDL_MOUSEBUTTONDOWN && gameScreen == true){
+		int xMouse, yMouse;
+		SDL_GetMouseState(&xMouse, &yMouse);
+		gameScreen = false;
+		cout << xMouse << "  " << yMouse << endl;
+		if (yMouse >= 460 && yMouse <=590 && xMouse >=545 && xMouse <=900 )
+		{
+			//when start clicked
 			gTexture = loadTexture("abnew.png");
 			begin = true;
+
 		}
+		else if (yMouse >= 620 && yMouse <=750 && xMouse >=545 && xMouse <=900 )
+		{
+			
+			quit = true; //when exit clicked
+
+		}}
 		// Handle events on queue
-		while (SDL_PollEvent(&e) != 0 )
+		while (SDL_PollEvent(&e) != 0 && begin == true && gameScreen == false)
 		{
 			// User requests quit
 			if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE)
@@ -159,7 +178,7 @@ void Game::run()
 				// landSeige.createEnemyEquipment();
 			}
 
-			if (e.type == SDL_KEYDOWN && begin == true)
+			if (e.type == SDL_KEYDOWN )
 			{
 				if (e.key.keysym.sym == SDLK_1)
 				{
@@ -201,7 +220,7 @@ void Game::run()
 		SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
 		//***********************draw the objects here********************
-		if (begin == true){
+		if (begin == true && gameScreen == false){
 		Uint64 current_time = SDL_GetTicks();
 		if (SDL_GetTicks() % 100 == 0)
 		{
