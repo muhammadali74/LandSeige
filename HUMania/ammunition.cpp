@@ -8,6 +8,17 @@ void ammunition::draw()
 {
     SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
 }
+
+int ammunition::get_Damage()
+{
+    return impact;
+}
+
+SDL_Rect ammunition::get_moverRect() const
+{
+    return moverRect;
+}
+
 bullet1::bullet1(int x, int y, bool z)
 {
     friend_or_foe = z;
@@ -19,6 +30,7 @@ bullet1::bullet1(int x, int y, bool z)
 void bullet1::move()
 {
     moverRect.x+=12;
+    
     // int animation = moverRect.x % 3;
     // if (animation ==0)
     // {

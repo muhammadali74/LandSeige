@@ -14,14 +14,18 @@ protected:
     vector<ammunition *> amm;
 
 public:
+    string name = "else";
     Uint64 creation_time = SDL_GetTicks();
     war_equipment(int x, int y);
     // ~war_equipment();
     void draw();
     virtual void move() = 0;
     virtual void fire();
+    virtual void fire_bullet();
     bool is_destroyed();
     void health_change(int impact); // this is to delete bee when it exits the screen
+    vector<ammunition *> &get_ammunition();
+    SDL_Rect get_moverRect() const;
 };
 
 class generator : public war_equipment
@@ -83,6 +87,7 @@ public:
     landMG(int, int, budget &);
     void move();
     void fire();
+    void fire_bullet();
 };
 class landmine : public war_equipment
 {

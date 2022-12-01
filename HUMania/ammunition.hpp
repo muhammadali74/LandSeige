@@ -14,6 +14,8 @@ class ammunition
         void draw();
         virtual void move() = 0;
         bool hit();
+        int get_Damage();
+        SDL_Rect get_moverRect() const;
         
     // may add other overloaded constructors here... 
 };

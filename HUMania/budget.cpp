@@ -15,6 +15,7 @@ int budget::getbudget()
 }
 
 void budget::increasebudget(int ptc) // overload em 
+
 {
     amount += ptc;
     cout << "Your budget is increased to: " << amount << endl;

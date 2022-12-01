@@ -35,6 +35,15 @@ war_equipment::war_equipment(int x, int y)
     moverRect = {x, y, xbox - 10, ybox - 10};
 }
 
+vector<ammunition *> &war_equipment::get_ammunition()
+{
+    return amm;
+}
+
+SDL_Rect war_equipment::get_moverRect() const
+{
+    return moverRect;
+}
 // child classes start here
 
 generator::generator(int x, int y, budget &b) : war_equipment{x, y}
@@ -44,6 +53,7 @@ generator::generator(int x, int y, budget &b) : war_equipment{x, y}
     srcRect = {80, 1450, 348, 308};
     b.decreasebudget(price);
     cashmod = &b;
+    name = "generator";
 }
 void generator::move()
 {
@@ -53,8 +63,7 @@ void generator::move()
 void generator::fire()
 {
 
-    if ((SDL_GetTicks() - creation_time) % 7000 >= 0 && (SDL_GetTicks() - creation_time) % 70
-    00 <= 10)
+    if ((SDL_GetTicks() - creation_time) % 1000 >= 0 && (SDL_GetTicks() - creation_time) % 1000 <= 10)
     {
         cashmod->increasebudget(200);
     }
@@ -78,6 +87,11 @@ tanker::tanker(int x, int y, bool z, budget &b) : war_equipment{x, y}
 void war_equipment::fire()
 {
 }
+
+void war_equipment::fire_bullet()
+{
+}
+
 void tanker::fire()
 {
     if (rand() % 10 == 4)
@@ -93,7 +107,10 @@ void tanker::fire()
 }
 void tanker::move()
 {
-    moverRect.x += 4;
+    if (z == false)
+    {
+        moverRect.x -= 2;
+    }
     // for(int i{0}; i < 500; i++)
     // {
     //     if (i%2==0)
@@ -121,12 +138,17 @@ void landMG::fire()
     }
 
     b++;
+}
+
+void landMG::fire_bullet()
+{
     for (int i{0}; i < amm.size(); i++)
     {
         amm[i]->draw();
         amm[i]->move();
     }
 }
+
 void landMG::move()
 {
 }
@@ -182,4 +204,8 @@ thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
 }
 void thunder::move()
 {
+    if (z == false)
+    {
+        moverRect.x -= 2;
+    }
 }

@@ -12,7 +12,7 @@ class LandSeige
 {
 
     // Right now we're creating one pigeon, just for practice. for details follow the guidlines
-    ObjectCreator objCreator;
+    ObjectCreator objCreator{};
     vector<war_equipment *> enemy;
     vector<war_equipment *> user;
     budget cash;

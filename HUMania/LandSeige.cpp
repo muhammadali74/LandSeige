@@ -8,14 +8,30 @@ void LandSeige::drawObjects()
     {
         user[i]->move();
         user[i]->draw();
+        if (objCreator.should_fire(user[i]->get_moverRect().y) == true || user[i]->name == "generator")
+        {
+            user[i]->fire();
+        }
+        for (int j{0}; j < enemy.size(); j++)
+        {
+            for (int k{0}; k < enemy[j]->get_ammunition().size(); k++)
+            {
+                if (enemy[j]->get_ammunition()[k]->get_moverRect().x == user[i]->get_moverRect().x)
+                {
+                    user[i]->health_change(enemy[j]->get_ammunition()[k]->get_Damage());
+                    enemy[j]->get_ammunition().erase(enemy[j]->get_ammunition().begin() + k);
+                }
+            }
+        }
 
-        user[i]->fire();
+        user[i]->fire_bullet();
 
         if (user[i]->is_destroyed() == true)
         {
+            objCreator.free_grid(user[i]->get_moverRect().x, user[i]->get_moverRect().y);
             delete user[i];
             user.erase(user.begin() + i);
-            cout << "object of the bee that exited the screen has been destroyed" << endl;
+            cout << "object of the user has been destroyed" << endl;
         }
     }
     if (enemy.size() > 0)
@@ -23,13 +39,42 @@ void LandSeige::drawObjects()
         for (int i{0}; i < enemy.size(); i++)
         {
             enemy[i]->draw();
-            enemy[i]->move();
+            // enemy[i]->fire();
+            // cout << enemy[i]->get_moverRect().x << " " << enemy[i]->get_moverRect().y << endl;
+            if (objCreator.check_grid((enemy[i]->get_moverRect().x) - 40, enemy[i]->get_moverRect().y) == true)
+            {
+                // cout << "dont move" << endl;
+            }
+            else
+            {
+                objCreator.set_grid_false(enemy[i]->get_moverRect().x - 40, enemy[i]->get_moverRect().y);
+                enemy[i]->move();
+            }
+            // enemy[i]->move();
+
+            for (int j{0}; j < user.size(); j++)
+            {
+                if (enemy[i]->get_moverRect().y == user[j]->get_moverRect().y)
+                {
+                    for (int k{0}; k < user[j]->get_ammunition().size(); k++)
+                    {
+                        if ((enemy[i]->get_moverRect().x - user[j]->get_ammunition()[k]->get_moverRect().x < 5))
+                        {
+                            enemy[i]->health_change(user[j]->get_ammunition()[k]->get_Damage());
+                            user[j]->get_ammunition().erase(user[j]->get_ammunition().begin() + k);
+                            cout << "imapact call" << endl;
+                        }
+                    }
+                }
+            }
 
             if (enemy[i]->is_destroyed() == true) // checks if the bee hits the screen exit
             {
+                objCreator.free_grid(enemy[i]->get_moverRect().x, enemy[i]->get_moverRect().y);
+                objCreator.set_row(enemy[i]->get_moverRect().y);
                 delete enemy[i];                // deletes the bee, and the pointer becomes in a dangling state
                 enemy.erase(enemy.begin() + i); // erases that dangling pointer after freeing the memory
-                cout << "object of the bee that exited the screen has been destroyed" << endl;
+                cout << "object of the enemy has been destroyed" << endl;
             }
         }
     }
@@ -53,14 +98,22 @@ void LandSeige::createEnemyEquipment()
 
 void LandSeige::createUserEquipment(int x, int y)
 {
-    int key = keypress.back();
-    keypress.pop_back();
-    war_equipment *temp = objCreator.getObject(x, y, key, cash);
-    if (temp != nullptr)
+
+    if (keypress.size() > 0)
     {
-        user.push_back(temp);
+        int key = keypress.back();
+        keypress.pop_back();
+        war_equipment *temp = objCreator.getObject(x, y, key, cash);
+        if (temp != nullptr)
+        {
+            user.push_back(temp);
+        }
+        std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
     }
-    std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
+    else
+    {
+        cout << "please select an equipment (keys 1-6)" << endl;
+    }
 }
 
 LandSeige::~LandSeige() // this destructor ensures that all the memor that was dynamically allocated is deallocated.
