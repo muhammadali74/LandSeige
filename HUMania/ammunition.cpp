@@ -18,7 +18,22 @@ SDL_Rect ammunition::get_moverRect() const
 {
     return moverRect;
 }
-
+void ammunition::set_srcRect(int v) 
+{
+    
+    moverRect.w = (60);
+    moverRect.h = 40;
+    
+    if (v < 2)
+    {
+        srcRect = {1197, 3154,234,146};
+    }
+    else
+    {
+        srcRect = {528, 3135,292, 236};
+    }
+    cout << "yupe" << endl;
+}
 bullet1::bullet1(int x, int y, bool z)
 {
     friend_or_foe = z;

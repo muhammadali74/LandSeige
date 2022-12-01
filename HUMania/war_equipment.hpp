@@ -14,6 +14,7 @@ protected:
     vector<ammunition *> amm;
 
 public:
+    virtual void destruction();
     string name = "else";
     Uint64 creation_time = SDL_GetTicks();
     war_equipment(int x, int y);
@@ -103,6 +104,7 @@ class turret : public war_equipment
 public:
     turret(int, int, budget &);
     void move();
+    void fire(bool);
 };
 
 class thunder : public war_equipment
@@ -110,6 +112,7 @@ class thunder : public war_equipment
 public:
     thunder(int, int, bool, budget &);
     void move();
+    void fire(bool);
 };
 // =======
 // =======

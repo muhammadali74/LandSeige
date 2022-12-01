@@ -16,7 +16,8 @@ using namespace std;
 class LandSeige
 {
 
-    ObjectCreator objCreator{};
+    // Right now we're creating one pigeon, just for practice. for details follow the guidlines
+    ObjectCreator& objCreator { ObjectCreator::get_instance() };;
     vector<war_equipment *> enemy;
     vector<war_equipment *> user;
     budget cash;
