@@ -311,4 +311,32 @@ public:
             row4--;
         }
     }
+
+    int get_creation_time(int s)
+    {
+        if (s == 1)
+        {
+            return t1;
+        }
+        else if (s == 2)
+        {
+            return t2;
+        }
+        else if (s == 3)
+        {
+            return t3;
+        }
+        else if (s == 4)
+        {
+            return t4;
+        }
+        else if (s == 5)
+        {
+            return t5;
+        }
+        else if (s == 6)
+        {
+            return t6;
+        }
+    }
 };

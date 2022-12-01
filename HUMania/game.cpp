@@ -5,6 +5,9 @@
 
 #include <Windows.h>
 
+#include <iostream>
+using namespace std;
+
 SDL_Renderer *Drawing::gRenderer = NULL;
 SDL_Texture *Drawing::assets = NULL;
 
@@ -29,7 +32,7 @@ bool Game::init()
 		}
 
 		// Create window
-		gWindow = SDL_CreateWindow("HU Mania", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("Land Siege", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -146,6 +149,7 @@ void Game::run()
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse, &yMouse);
 				landSeige.createUserEquipment(xMouse, yMouse);
+				cout << xMouse << "  " << yMouse << endl;
 				// landSeige.createEnemyEquipment();
 			}
 
@@ -197,6 +201,8 @@ void Game::run()
 			landSeige.createEnemyEquipment();
 		}
 		landSeige.drawObjects();
+		landSeige.handleprogress();
+		landSeige.handlereloader();
 
 		//****************************************************************
 		SDL_RenderPresent(Drawing::gRenderer); // displays the updated renderer
