@@ -6,7 +6,7 @@ using namespace std;
 class budget
 {
 protected:
-    int amount;
+    unsigned int amount;
     float bonus;
 
 public:

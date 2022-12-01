@@ -87,22 +87,21 @@ void war_equipment::fire(bool foe)
 {
 }
 
-void war_equipment::fire_bullet()
+void war_equipment::fire_bullet(bool foe)
 {
 }
 
-`
 void tanker::fire(bool foe)
 {
-    if (rand() % 10 == 4)
+    if (rand() % 100 == 4)
     {
-        if(foe)
+        if (foe)
         {
             amm.push_back(new bomb(moverRect.x + 145, moverRect.y + 15, foe));
         }
         else
         {
-            amm.push_back(new bomb(moverRect.x - 20, moverRect.y +10, foe));
+            amm.push_back(new bomb(moverRect.x - 20, moverRect.y + 10, foe));
         }
     };
 
@@ -134,7 +133,7 @@ landMG::landMG(int x, int y, budget &b) : war_equipment{x, y}
 }
 void landMG::fire(bool foe)
 {
-    // if 
+    // if
     // (b % 5 == 0)
     // {
     if (SDL_GetTicks() % 80 == 0 || SDL_GetTicks() % 80 == 5 || SDL_GetTicks() % 80 == 10 || SDL_GetTicks() % 80 == 15)
@@ -145,7 +144,7 @@ void landMG::fire(bool foe)
     b++;
 }
 
-void landMG::fire_bullet()
+void landMG::fire_bullet(bool foe)
 {
     for (int i{0}; i < amm.size(); i++)
     {
@@ -191,7 +190,7 @@ turret::turret(int x, int y, budget &b) : war_equipment{x, y}
 }
 void turret::move()
 {
-    moverRect.x-=1;
+    moverRect.x -= 1;
 }
 thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
 {

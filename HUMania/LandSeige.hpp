@@ -8,6 +8,8 @@
 using namespace std;
 #pragma once
 
+#define play_time 300000
+
 class LandSeige
 {
 
@@ -16,7 +18,9 @@ class LandSeige
     vector<war_equipment *> enemy;
     vector<war_equipment *> user;
     budget cash;
-
+    bool Win;
+    bool Lose;
+    Uint64 init_time;
     // Create your list here
 public:
     vector<int> keypress;
@@ -26,5 +30,7 @@ public:
     void createUserEquipment(int, int);
     void createEnemyEquipment();
     bool has_budget(int price);
+    bool has_won();
+    bool has_lost();
     // create destructor which deletes all dynamic objects
 };

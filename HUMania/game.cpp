@@ -127,9 +127,9 @@ void Game::run()
 	bool quit = false;
 	SDL_Event e;
 
-	LandSeige landSeige;
+	LandSeige landSeige{};
 
-	while (!quit)
+	while (!quit && (landSeige.has_lost() == false))
 	{
 		// Handle events on queue
 		while (SDL_PollEvent(&e) != 0)

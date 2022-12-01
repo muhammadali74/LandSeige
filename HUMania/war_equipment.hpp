@@ -21,7 +21,7 @@ public:
     void draw();
     virtual void move() = 0;
     virtual void fire(bool);
-    virtual void fire_bullet();
+    virtual void fire_bullet(bool);
     bool is_destroyed();
     void health_change(int impact); // this is to delete bee when it exits the screen
     vector<ammunition *> &get_ammunition();
@@ -87,7 +87,7 @@ public:
     landMG(int, int, budget &);
     void move();
     void fire(bool);
-    void fire_bullet();
+    void fire_bullet(bool);
 };
 class landmine : public war_equipment
 {

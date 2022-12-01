@@ -199,6 +199,14 @@ public:
         cout << " grid is freed" << endl;
     }
 
+    void free_grid2(int x, int y)
+    {
+        int colNum = (x / xbox) + 0.72;
+        int rowNum = (y / ybox) + 0.2;
+        occupied[rowNum + 1][colNum + 1] = false;
+        cout << " grid is freed" << rowNum << colNum << endl;
+    }
+
     bool check_grid(int x, int y)
     {
         int colNum = (x / xbox) + 0.72;

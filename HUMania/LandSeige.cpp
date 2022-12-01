@@ -1,6 +1,7 @@
 #include <iostream>
 #include "LandSeige.hpp"
 #pragma once
+
 void LandSeige::drawObjects()
 {
     // call draw functions of all the objects here
@@ -13,21 +14,25 @@ void LandSeige::drawObjects()
         }
         for (int j{0}; j < enemy.size(); j++)
         {
-            for (int k{0}; k < enemy[j]->get_ammunition().size(); k++)
+            if (user[i]->get_moverRect().y == enemy[j]->get_moverRect().y)
             {
-                if (enemy[j]->get_ammunition()[k]->get_moverRect().x == user[i]->get_moverRect().x)
+                for (int k{0}; k < enemy[j]->get_ammunition().size(); k++)
                 {
-                    user[i]->health_change(enemy[j]->get_ammunition()[k]->get_Damage());
-                    enemy[j]->get_ammunition().erase(enemy[j]->get_ammunition().begin() + k);
+                    if ((enemy[j]->get_ammunition()[k]->get_moverRect().x - user[i]->get_moverRect().x < 80))
+                    {
+                        user[i]->health_change(enemy[j]->get_ammunition()[k]->get_Damage());
+                        enemy[j]->get_ammunition().erase(enemy[j]->get_ammunition().begin() + k);
+                        cout << "impact user equoiptment" << endl;
+                    }
                 }
             }
         }
 
-        user[i]->fire_bullet();
+        user[i]->fire_bullet(true);
 
         if (user[i]->is_destroyed() == true)
         {
-            objCreator.free_grid(user[i]->get_moverRect().x, user[i]->get_moverRect().y);
+            objCreator.free_grid2(user[i]->get_moverRect().x, user[i]->get_moverRect().y);
             delete user[i];
             user.erase(user.begin() + i);
             cout << "object of the user has been destroyed" << endl;
@@ -38,6 +43,10 @@ void LandSeige::drawObjects()
         for (int i{0}; i < enemy.size(); i++)
         {
             enemy[i]->draw();
+            if ((enemy[i]->get_moverRect().x) <= -150)
+            {
+                Lose = true;
+            }
             // enemy[i]->fire();
             // cout << enemy[i]->get_moverRect().x << " " << enemy[i]->get_moverRect().y << endl;
             if (objCreator.check_grid((enemy[i]->get_moverRect().x) - 40, enemy[i]->get_moverRect().y) == true)
@@ -78,19 +87,31 @@ void LandSeige::drawObjects()
             }
         }
     }
+
+    else if (enemy.size() == 0 && SDL_GetTicks() > play_time)
+    {
+        Win = true;
+        cout << "you win" << endl;
+    }
 }
 
 // creates new objects
 void LandSeige::createEnemyEquipment()
 {
     // this allows random generaion of the bee, butterfly or pigeon
-
-    int rtm = rand() % 5;
-
-    if (rtm <= 3)
+    if (SDL_GetTicks() < play_time)
     {
-        enemy.push_back(objCreator.getObject(cash));
-        cout << "enemy created" << endl;
+        int rtm = rand() % 5;
+
+        if (rtm <= 3)
+        {
+            enemy.push_back(objCreator.getObject(cash));
+            cout << "enemy created" << endl;
+        }
+    }
+    else
+    {
+        cout << "not geenrating enemies now" << endl;
     }
     // rtm++;
     // std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
@@ -140,3 +161,13 @@ bool LandSeige::has_budget(int price)
         return false;
     }
 };
+
+bool LandSeige::has_lost()
+{
+    return Lose;
+}
+
+bool LandSeige::has_won()
+{
+    return Win;
+}
