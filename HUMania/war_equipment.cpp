@@ -70,6 +70,8 @@ void generator::fire(bool foe)
 
 tanker::tanker(int x, int y, bool z, budget &b) : war_equipment{x, y}
 {
+    health = 750;
+    price = 800;
     if (z == true)
     {
         srcRect = {461, 1826, 365, 270};
@@ -80,8 +82,7 @@ tanker::tanker(int x, int y, bool z, budget &b) : war_equipment{x, y}
         srcRect = {975, 1500, 443, 231};
     }
 
-    health = 750;
-    price = 800;
+    
 }
 void war_equipment::destruction()
 {

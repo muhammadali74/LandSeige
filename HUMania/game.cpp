@@ -72,7 +72,7 @@ bool Game::loadMedia()
 	bool success = true;
 
 	Drawing::assets = loadTexture("Artboard 1.png");
-	gTexture = loadTexture("abnew.png");
+	gTexture = loadTexture("sdlDrawing.png");
 	if (Drawing::assets == NULL || gTexture == NULL)
 	{
 		printf("Unable to run due to error: %s\n", SDL_GetError());
@@ -131,11 +131,17 @@ void Game::run()
 	SDL_Event e;
 
 	LandSeige landSeige{};
-
+	
 	while (!quit && (landSeige.has_lost() == false))
 	{
+		if (e.key.keysym.sym == SDLK_SPACE)
+		{
+			cout << "yay";
+			gTexture = loadTexture("abnew.png");
+			begin = true;
+		}
 		// Handle events on queue
-		while (SDL_PollEvent(&e) != 0)
+		while (SDL_PollEvent(&e) != 0 )
 		{
 			// User requests quit
 			if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE)
@@ -143,7 +149,7 @@ void Game::run()
 				quit = true;
 			}
 
-			if (e.type == SDL_MOUSEBUTTONDOWN)
+			if (e.type == SDL_MOUSEBUTTONDOWN )
 			{
 				// this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
@@ -153,7 +159,7 @@ void Game::run()
 				// landSeige.createEnemyEquipment();
 			}
 
-			if (e.type == SDL_KEYDOWN)
+			if (e.type == SDL_KEYDOWN && begin == true)
 			{
 				if (e.key.keysym.sym == SDLK_1)
 				{
@@ -195,6 +201,7 @@ void Game::run()
 		SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
 		//***********************draw the objects here********************
+		if (begin == true){
 		Uint64 current_time = SDL_GetTicks();
 		if (SDL_GetTicks() % 100 == 0)
 		{
@@ -203,7 +210,7 @@ void Game::run()
 		landSeige.drawObjects();
 		landSeige.handleprogress();
 		landSeige.handlereloader();
-
+		}
 		//****************************************************************
 		SDL_RenderPresent(Drawing::gRenderer); // displays the updated renderer
 

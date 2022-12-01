@@ -15,7 +15,7 @@ class Game
 
     // The window we'll be rendering to
     SDL_Window *gWindow = NULL;
-
+    bool begin = false;
     // Current displayed texture
     SDL_Texture *gTexture = NULL;
 
