@@ -11,9 +11,11 @@ protected:
 
 public:
     budget();
+    char *getbudget_4();
     int getbudget();
     void increasebudget(int);
     void decreasebudget(int);
     bool has_budget(int);
+
     // friend class LandSeige;
 };

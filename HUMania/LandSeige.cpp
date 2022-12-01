@@ -1,6 +1,19 @@
 #include <iostream>
 #include "LandSeige.hpp"
+#include <SDL_ttf.h>
 #pragma once
+
+LandSeige::LandSeige()
+{
+    int l = 5000;
+    int x = 175;
+    for (int i = 0; i < 6; i++)
+    {
+        reloaders[i] = Reloader{x, l};
+        l += 2000;
+        x += 163;
+    }
+}
 
 void LandSeige::drawObjects()
 {
@@ -93,6 +106,8 @@ void LandSeige::drawObjects()
         Win = true;
         cout << "you win" << endl;
     }
+
+    DrawText(cash.getbudget_4());
 }
 
 // creates new objects
@@ -179,13 +194,55 @@ bool LandSeige::has_won()
     return Win;
 }
 
-// void LandSeige::Remove_equipment(int x, int y)
-// {
-//         if (user[i]->get_moverRect().x == x && user[i]->get_moverRect().y == y)
-//         {
-//             objCreator.free_grid2(user[i]->get_moverRect().x, user[i]->get_moverRect().y);
-//             delete user[i];
-//             user.erase(user.begin() + i);
-//             cout << "object of the user has been removed by user" << endl;
-//         }
-// }
+void LandSeige::Remove_equipment(int x, int y)
+{
+    for (int i{0}; i < user.size(); i++)
+    {
+        if (user[i]->get_moverRect().x == x && user[i]->get_moverRect().y == y)
+        {
+            objCreator.free_grid2(user[i]->get_moverRect().x, user[i]->get_moverRect().y);
+            delete user[i];
+            user.erase(user.begin() + i);
+            cout << "object of the user has been removed by user" << endl;
+        }
+    }
+}
+
+void LandSeige::handleprogress()
+{
+    progressbar.draw();
+    progressbar.state(SDL_GetTicks());
+    weaponSelector.draw();
+    weaponSelector.select_current(keypressed);
+}
+
+void LandSeige::handlereloader()
+{
+    for (int i = 0; i < 6; i++)
+    {
+        reloaders[i].draw();
+        reloaders[i].reload(SDL_GetTicks() - objCreator.get_creation_time(i + 1));
+    }
+}
+
+void LandSeige::DrawText(const char *msg)
+{
+    SDL_Surface *surface;
+    SDL_Texture *texture;
+    TTF_Font *font = TTF_OpenFont("orbitron.ttf", 24);
+    SDL_Color color;
+    color.r = 0;
+    color.g = 255;
+    color.b = 0;
+    color.a = 255;
+    SDL_Rect rect;
+    surface = TTF_RenderText_Solid(font, msg, color);
+    texture = SDL_CreateTextureFromSurface(Drawing::gRenderer, surface);
+    rect.x = 51;
+    rect.y = 23;
+    rect.w = surface->w;
+    rect.h = surface->h;
+    SDL_FreeSurface(surface);
+    SDL_RenderCopy(Drawing::gRenderer, texture, NULL, &rect);
+    SDL_DestroyTexture(texture);
+}
