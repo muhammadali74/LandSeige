@@ -169,7 +169,7 @@ landmine::landmine(int x, int y, budget &b) : war_equipment{x, y}
 {
 
     srcRect = {1284, 2538, 298, 221};
-    health = 150;
+    health = 800;
     price = 200;
     b - price;
 }
@@ -178,15 +178,15 @@ void landmine::move()
 }
 void landmine::fire(bool foe)
 {
-    health--;
-    if (health == 60)
-    {
-        srcRect = {141, 3133, 326, 285};
-    }
-    else if (health == 50)
-    {
-        srcRect = {141, 3427, 326, 285};
-    }
+    // health--;
+    // if (health == 60)
+    // {
+    //     srcRect = {141, 3133, 326, 285};
+    // }
+    // else if (health == 50)
+    // {
+    //     srcRect = {141, 3427, 326, 285};
+    // }
 }
 turret::turret(int x, int y, budget &b) : war_equipment{x, y}
 {
@@ -202,6 +202,8 @@ void turret::move()
 }
 thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
 {
+    health = 500;
+    price = 1000;
     if (z == true)
     {
         srcRect = {902, 1809, 381, 267};
@@ -211,8 +213,7 @@ thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
     {
         srcRect = {65, 2519, 486, 236};
     }
-    health = 500;
-    price = 1000;
+    
 }
 void thunder::move()
 {

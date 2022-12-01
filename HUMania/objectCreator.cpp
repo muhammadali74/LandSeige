@@ -129,6 +129,7 @@ public:
                     occupied[rowNum][colNum] = true;
                     t2 = SDL_GetTicks();
                     return new turret{x_axis, y_axis, cash};
+                    
                 }
                 else
                 {
@@ -141,11 +142,12 @@ public:
             else if (key == 3)
             {
 
-                if (cash.has_budget(200) == true && (SDL_GetTicks() - t3 >= l3))
+                if (cash.has_budget(800) == true && (SDL_GetTicks() - t3 >= l3))
                 {
                     occupied[rowNum][colNum] = true;
                     t3 = SDL_GetTicks();
-                    return new landmine{x_axis, y_axis, cash};
+                    return new tanker{x_axis, y_axis, true, cash};
+                    
                 }
                 else
                 {
@@ -156,11 +158,11 @@ public:
             }
             else if (key == 4)
             {
-                if (cash.has_budget(800) == true && (SDL_GetTicks() - t4 >= l4))
+                if (cash.has_budget(1000) == true && (SDL_GetTicks() - t4 >= l4))
                 {
                     occupied[rowNum][colNum] = true;
                     t4 = SDL_GetTicks();
-                    return new tanker{x_axis, y_axis, true, cash};
+                    return new thunder{x_axis, y_axis, true, cash};
                 }
                 else
                 {
@@ -171,11 +173,11 @@ public:
             }
             else if (key == 5)
             {
-                if (cash.has_budget(1000) == true && (SDL_GetTicks() - t5 >= l5))
+                if (cash.has_budget(600) == true && (SDL_GetTicks() - t5 >= l5))
                 {
                     occupied[rowNum][colNum] = true;
                     t5 = SDL_GetTicks();
-                    return new thunder{x_axis, y_axis, true, cash};
+                    return new landMG{x_axis, y_axis, cash};
                 }
                 else
                 {
@@ -186,11 +188,11 @@ public:
             }
             else if (key == 6)
             {
-                if (cash.has_budget(600) == true && (SDL_GetTicks() - t6 >= l5))
+                if (cash.has_budget(200) == true && (SDL_GetTicks() - t6 >= l5))
                 {
                     occupied[rowNum][colNum] = true;
                     t6 = SDL_GetTicks();
-                    return new landMG{x_axis, y_axis, cash};
+                    return new landmine{x_axis, y_axis, cash};
                 }
                 else
                 {
