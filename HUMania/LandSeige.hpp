@@ -24,6 +24,7 @@ class LandSeige
     // Create your list here
 public:
     vector<int> keypress;
+    int keypressed = 0;
 
     ~LandSeige();
     void drawObjects();

@@ -120,16 +120,23 @@ void LandSeige::createEnemyEquipment()
 void LandSeige::createUserEquipment(int x, int y)
 {
 
-    if (keypress.size() > 0)
+    // if (keypress.size() > 0)
+    if (keypressed > 0)
     {
-        int key = keypress.back();
-        keypress.pop_back();
-        war_equipment *temp = objCreator.getObject(x, y, key, cash);
+        // int key = keypress.back();
+        // keypress.pop_back();
+        war_equipment *temp = objCreator.getObject(x, y, keypressed, cash);
+        keypressed = 0;
         if (temp != nullptr)
         {
             user.push_back(temp);
         }
         std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
+    }
+    else if (keypressed == -1)
+    {
+        keypressed = 0;
+        // Remove_equipment(x, y);
     }
     else
     {
@@ -171,3 +178,14 @@ bool LandSeige::has_won()
 {
     return Win;
 }
+
+// void LandSeige::Remove_equipment(int x, int y)
+// {
+//         if (user[i]->get_moverRect().x == x && user[i]->get_moverRect().y == y)
+//         {
+//             objCreator.free_grid2(user[i]->get_moverRect().x, user[i]->get_moverRect().y);
+//             delete user[i];
+//             user.erase(user.begin() + i);
+//             cout << "object of the user has been removed by user" << endl;
+//         }
+// }

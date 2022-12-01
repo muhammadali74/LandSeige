@@ -154,26 +154,37 @@ void Game::run()
 				if (e.key.keysym.sym == SDLK_1)
 				{
 					landSeige.keypress.push_back(1);
+					landSeige.keypressed = 1;
 				}
 				else if (e.key.keysym.sym == SDLK_2)
 				{
 					landSeige.keypress.push_back(2);
+					landSeige.keypressed = 2;
 				}
 				else if (e.key.keysym.sym == SDLK_3)
 				{
 					landSeige.keypress.push_back(3);
+					landSeige.keypressed = 3;
 				}
 				else if (e.key.keysym.sym == SDLK_4)
 				{
 					landSeige.keypress.push_back(4);
+					landSeige.keypressed = 4;
 				}
 				else if (e.key.keysym.sym == SDLK_5)
 				{
 					landSeige.keypress.push_back(5);
+					landSeige.keypressed = 5;
 				}
 				else if (e.key.keysym.sym == SDLK_6)
 				{
 					landSeige.keypress.push_back(6);
+					landSeige.keypressed = 6;
+				}
+				else if (e.key.keysym.sym == SDLK_7)
+				{
+					landSeige.keypress.push_back(7);
+					landSeige.keypressed = -1;
 				}
 			}
 		}
