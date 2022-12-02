@@ -230,17 +230,23 @@ void thunder::move()
 }
 void thunder::fire(bool foe)
 {
-    if (rand() % 50 == 4)
-    {
+    
         if (foe)
         {
+            if (rand() % 10 == 1)
+            {
             amm.push_back(new bullet1(moverRect.x + 145, moverRect.y + 15, foe));
+            cout << "what";
+            }
         }
         else
         {
+            if (rand() % 20 == 1)
+            {
             amm.push_back(new bullet1(moverRect.x - 20, moverRect.y + 52, foe));
+            }
         }
-    };
+
 
     for (int i{0}; i < amm.size(); i++)
     {
