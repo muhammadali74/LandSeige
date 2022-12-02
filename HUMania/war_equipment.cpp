@@ -223,7 +223,6 @@ thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
     {
         srcRect = {65, 2519, 486, 236};
     }
-    
 }
 void thunder::move()
 {
