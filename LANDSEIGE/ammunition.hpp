@@ -9,16 +9,14 @@ class ammunition
         int impact;
         bool friend_or_foe;
     public:
-        // add the fly function here as well.
-
         void draw();
         virtual void move(bool) = 0;
         bool hit();
         int get_Damage();
         SDL_Rect get_moverRect() const;
         void set_srcRect(int) ;
-    // may add other overloaded constructors here... 
 };
+
 class bullet1 : public ammunition
 {
     public:
@@ -26,6 +24,7 @@ class bullet1 : public ammunition
     void move(bool);
 
 };
+
 class bomb: public ammunition
 {
     public:
@@ -33,14 +32,3 @@ class bomb: public ammunition
     void move(bool);
 
 };
-// class bullet : public ammunition
-// {
-
-//     impact = 25;
-
-// };
-// class bomb : public ammunition
-// {
-//     impact = 100;
-
-// };

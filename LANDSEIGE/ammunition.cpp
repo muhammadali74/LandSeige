@@ -3,7 +3,7 @@
 #include "SDL.h"
 #include "drawing.hpp"
 
-
+//PArent class ammunition functions
 void ammunition::draw()
 {
     SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
@@ -18,6 +18,7 @@ SDL_Rect ammunition::get_moverRect() const
 {
     return moverRect;
 }
+
 void ammunition::set_srcRect(int v) 
 {
     
@@ -34,6 +35,8 @@ void ammunition::set_srcRect(int v)
     }
     cout << "yupe" << endl;
 }
+
+//child class bullet1
 bullet1::bullet1(int x, int y, bool z)
 {
     friend_or_foe = z;
@@ -60,20 +63,9 @@ void bullet1::move(bool foe)
     {
          moverRect.x-=14;
     }
-    // int animation = moverRect.x % 3;
-    // if (animation ==0)
-    // {
-    //     srcRect = {257, 182, 192, 214};
-    // }
-    // else if (animation ==1)
-    // {
-    //     srcRect = {248, 433, 247, 178};
-    // }
-    // else if (animation ==2)
-    // {
-    //     srcRect = {257, 24, 173, 134};
-    // }
 };
+
+//child class bomb
 bomb::bomb(int x, int y, bool z)
 {
     friend_or_foe = z;
@@ -95,26 +87,9 @@ void bomb::move(bool foe)
     if (foe)
     {
         moverRect.x+=15;
-        // if (moverRect.x % 8 == 2)
-        // {
-        //     srcRect = {1592, 3758, 239, 120};
-        // }
     }
     else
     {
         moverRect.x-=15;
     }
-    // int animation = moverRect.x % 3;
-    // if (animation ==0)
-    // {
-    //     srcRect = {257, 182, 192, 214};
-    // }
-    // else if (animation ==1)
-    // {
-    //     srcRect = {248, 433, 247, 178};
-    // }
-    // else if (animation ==2)
-    // {
-    //     srcRect = {257, 24, 173, 134};
-    // }
 };

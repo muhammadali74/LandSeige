@@ -4,19 +4,18 @@ using namespace std;
 
 budget::budget() // constructor
 {
-    amount = 1001;
+    amount = 1250; 
     cout << "budget initilaized" << endl;
 }
 
 char *budget::getbudget_4()
-{
+{   
+    if(amount==0)
+    {
+        char arr[]= "Zero";
+        return arr;
+    }
     cout << "Your budget is: " << amount << endl;
-    // if (amount == 0)
-    // {
-    //     char arr[] = "0";
-    //     return arr;
-    // }
-
     int m = amount;
     int n = amount;
     int digit = 0;
@@ -42,24 +41,13 @@ char *budget::getbudget_4()
         // Return char array
     return arr;
 }
+
 int budget::getbudget()
 {
     cout << "Your budget is: " << amount << endl;
     return amount;
 }
 
-void budget::increasebudget(int ptc) // overload em
-
-{
-    amount += ptc;
-    cout << "Your budget is increased to: " << amount << endl;
-}
-
-void budget::decreasebudget(int ptc)
-{
-    amount -= ptc;
-    cout << "Your budget is decreased to: " << amount << endl;
-}
 
 bool budget::has_budget(int price)
 {
