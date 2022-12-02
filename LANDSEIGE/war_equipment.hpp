@@ -26,7 +26,7 @@ public:
     virtual void fire(bool);
     virtual void fire_bullet(bool);
     bool is_destroyed();
-    void health_change(int impact); 
+    void health_change(int impact);
     vector<ammunition *> &get_ammunition();
     SDL_Rect get_moverRect() const;
     bool has_fired();
@@ -48,7 +48,7 @@ public:
     void fire(bool);
     tanker(int, int, bool, budget &);
     void move();
-   
+    void fire_bullet(bool);
 };
 
 class landMG : public war_equipment
@@ -76,6 +76,7 @@ public:
     turret(int, int, budget &);
     void move();
     void fire(bool);
+    void fire_bullet(bool);
 };
 
 class thunder : public war_equipment
@@ -84,5 +85,5 @@ public:
     thunder(int, int, bool, budget &);
     void move();
     void fire(bool);
+    void fire_bullet(bool);
 };
-

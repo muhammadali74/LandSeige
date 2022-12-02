@@ -11,13 +11,15 @@
 class ObjectCreator
 {
     ObjectCreator()
-    {for (int i = 1; i < 5; i++)
+    {
+        for (int i = 1; i < 5; i++)
         {
             for (int j = 1; j < 8; j++)
             {
                 occupied[i][j] = false;
             }
-        }}
+        }
+    }
     bool occupied[5][8];
     const float rows = 5.25, cols = 7.5;
     // char *grid = new char[rows * cols];
@@ -32,7 +34,7 @@ class ObjectCreator
     int t1{0}, t2{0}, t3{0}, t4{0}, t5{0}, t6{0};
 
 public:
-    static ObjectCreator& get_instance()
+    static ObjectCreator &get_instance()
     {
         // Make the object of this class static so that it doesn't get destroyed at the end of this function.
         static ObjectCreator instance;
@@ -129,7 +131,6 @@ public:
                     occupied[rowNum][colNum] = true;
                     t2 = SDL_GetTicks();
                     return new turret{x_axis, y_axis, cash};
-                    
                 }
                 else
                 {
@@ -147,7 +148,6 @@ public:
                     occupied[rowNum][colNum] = true;
                     t3 = SDL_GetTicks();
                     return new tanker{x_axis, y_axis, true, cash};
-                    
                 }
                 else
                 {
@@ -158,7 +158,7 @@ public:
             }
             else if (key == 4)
             {
-                if (cash.has_budget(1000) == true && (SDL_GetTicks() - t4 >= l4))
+                if (cash.has_budget(1050) == true && (SDL_GetTicks() - t4 >= l4))
                 {
                     occupied[rowNum][colNum] = true;
                     t4 = SDL_GetTicks();

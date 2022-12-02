@@ -4,14 +4,13 @@
 #include "budget.hpp"
 #pragma once
 
-
-//Parent class functions 
+// Parent class functions
 void war_equipment::draw()
 {
     SDL_RenderCopy(Drawing::gRenderer, Drawing::assets, &srcRect, &moverRect);
 }
 
-bool war_equipment::is_destroyed() //checks if equipemnt can be destroyed
+bool war_equipment::is_destroyed() // checks if equipemnt can be destroyed
 {
     if (health <= 0)
     {
@@ -23,19 +22,19 @@ bool war_equipment::is_destroyed() //checks if equipemnt can be destroyed
     }
 }
 
-void war_equipment::health_change(int impact) //Modifies health
+void war_equipment::health_change(int impact) // Modifies health
 {
     health -= impact;
 }
 
-war_equipment::war_equipment(int x, int y) //constructor
+war_equipment::war_equipment(int x, int y) // constructor
 {
     int xbox = 1441 / 7.5;
     int ybox = 810 / 5.25;
     moverRect = {x, y, xbox - 10, ybox - 10};
 }
 
-bool war_equipment::has_fired()  //checks if ammunition has been fired
+bool war_equipment::has_fired() // checks if ammunition has been fired
 {
     if (amm.size() > prev_amm_size)
     {
@@ -48,30 +47,30 @@ bool war_equipment::has_fired()  //checks if ammunition has been fired
     }
 }
 
-vector<ammunition *> &war_equipment::get_ammunition() //stores ammunition
+vector<ammunition *> &war_equipment::get_ammunition() // stores ammunition
 {
     return amm;
 }
 
-SDL_Rect war_equipment::get_moverRect() const //used to check collision between ammunition and equipment
+SDL_Rect war_equipment::get_moverRect() const // used to check collision between ammunition and equipment
 {
     return moverRect;
 }
 
-war_equipment::~war_equipment() //releases the memory on heap
+war_equipment::~war_equipment() // releases the memory on heap
 {
-    for(int i{0}; i < amm.size(); i++)
+    for (int i{0}; i < amm.size(); i++)
     {
         delete amm[i];
     }
 }
 
-void war_equipment::delete_amm(int k) //releases the memory on heap once the ammunition colllides with the equipment
+void war_equipment::delete_amm(int k) // releases the memory on heap once the ammunition colllides with the equipment
 {
     delete amm[k];
 }
 
-void war_equipment::destruction() //this allows blast animation to be displayed
+void war_equipment::destruction() // this allows blast animation to be displayed
 {
     srcRect = {141, 3133, 326, 285};
     cout << "YAY";
@@ -81,14 +80,14 @@ void war_equipment::fire(bool foe)
 {
 }
 
-void war_equipment::fire_bullet(bool foe) //used for MG
+void war_equipment::fire_bullet(bool foe) // used for MG
 {
 }
 
 // child classes start here
 
-//Generator 
-generator::generator(int x, int y, budget &b) : war_equipment{x, y} 
+// Generator
+generator::generator(int x, int y, budget &b) : war_equipment{x, y}
 {
     health = 500;
     price = 300;
@@ -100,7 +99,6 @@ generator::generator(int x, int y, budget &b) : war_equipment{x, y}
 
 void generator::move()
 {
-
 }
 
 void generator::fire(bool foe)
@@ -112,8 +110,7 @@ void generator::fire(bool foe)
     }
 }
 
-
-//Tanker
+// Tanker
 
 tanker::tanker(int x, int y, bool z, budget &b) : war_equipment{x, y}
 {
@@ -143,7 +140,10 @@ void tanker::fire(bool foe)
             amm.push_back(new bomb(moverRect.x - 20, moverRect.y + 10, foe));
         }
     };
+}
 
+void tanker::fire_bullet(bool foe)
+{
     for (int i{0}; i < amm.size(); i++)
     {
         amm[i]->move(foe);
@@ -156,7 +156,7 @@ void tanker::move()
     moverRect.x -= 1;
 }
 
-//LandMG
+// LandMG
 landMG::landMG(int x, int y, budget &b) : war_equipment{x, y}
 {
     srcRect = {511, 1449, 341, 315};
@@ -170,11 +170,6 @@ void landMG::fire(bool foe)
     if (SDL_GetTicks() % 80 == 0 || SDL_GetTicks() % 80 == 5 || SDL_GetTicks() % 80 == 10 || SDL_GetTicks() % 80 == 15)
     {
         amm.push_back(new bullet1(moverRect.x + 192, moverRect.y + 20, foe));
-    }
-    for (int i{0}; i < amm.size(); i++)
-    {
-        amm[i]->draw();
-        amm[i]->move(foe);
     }
 }
 
@@ -191,8 +186,7 @@ void landMG::move()
 {
 }
 
-
-//Landmine
+// Landmine
 landmine::landmine(int x, int y, budget &b) : war_equipment{x, y}
 {
 
@@ -208,10 +202,9 @@ void landmine::move()
 
 void landmine::fire(bool foe)
 {
-
 }
 
-//turret
+// turret
 
 turret::turret(int x, int y, budget &b) : war_equipment{x, y}
 {
@@ -228,12 +221,15 @@ void turret::fire(bool foe)
     {
         amm.push_back(new bullet1(moverRect.x + 145, moverRect.y + 45, foe));
     };
+}
 
+void turret::fire_bullet(bool foe)
+{
     for (int i{0}; i < amm.size(); i++)
     {
-        amm[i]->move(foe);
         amm[i]->draw();
-    };
+        amm[i]->move(foe);
+    }
 }
 
 void turret::move()
@@ -241,11 +237,11 @@ void turret::move()
     moverRect.x -= 1;
 }
 
-//thunder
+// thunder
 thunder::thunder(int x, int y, bool z, budget &b) : war_equipment{x, y}
 {
     health = 500;
-    price = 1000;
+    price = 1050;
     if (z == true)
     {
         srcRect = {902, 1809, 381, 267};
@@ -264,28 +260,29 @@ void thunder::move()
 
 void thunder::fire(bool foe)
 {
-    
+
     if (foe)
     {
         if (rand() % 10 == 1)
         {
-        amm.push_back(new bullet1(moverRect.x + 145, moverRect.y + 15, foe));
-        cout << "what";
+            amm.push_back(new bullet1(moverRect.x + 145, moverRect.y + 15, foe));
+            cout << "what";
         }
     }
     else
     {
         if (rand() % 20 == 1)
         {
-        amm.push_back(new bullet1(moverRect.x - 20, moverRect.y + 52, foe));
+            amm.push_back(new bullet1(moverRect.x - 20, moverRect.y + 52, foe));
         }
     }
-
-
-    for (int i{0}; i < amm.size(); i++)
-    {
-        amm[i]->move(foe);
-        amm[i]->draw();
-    };
 }
 
+void thunder::fire_bullet(bool foe)
+{
+    for (int i{0}; i < amm.size(); i++)
+    {
+        amm[i]->draw();
+        amm[i]->move(foe);
+    }
+}
