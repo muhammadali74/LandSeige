@@ -25,8 +25,8 @@ class LandSeige
     ProgressBar progressbar;
     WeaponSelector weaponSelector{};
     Reloader reloaders[6];
-    bool Win;
-    bool Lose;
+    bool Win{false};
+    bool Lose{false};
     Uint64 init_time;
 
     // Create your list here
