@@ -154,6 +154,7 @@ SDL_Texture *Game::loadTexture(std::string path)
 void Game::run()
 {
 	bool quit = false;
+	bool lost = false;
 	bool gameScreen = false;
 	SDL_Event e;
 
@@ -162,8 +163,18 @@ void Game::run()
 
 	LandSeige landSeige{};
 
-	while (!quit && (landSeige.has_lost() == false))
+	while (!quit )
 	{
+		if(landSeige.has_lost() == true)
+		{
+			gTexture = loadTexture("loseArtboard 1.png");
+			lost = true;
+		
+		}
+		if(landSeige.has_won() == true)
+		{
+			gTexture = loadTexture("winArtboard 1.png");
+		}
 		if (SDL_GetTicks() > 5000 && begin == false)
 		{
 			gTexture = loadTexture("Artboard1.png");
@@ -248,7 +259,7 @@ void Game::run()
 		SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
 		//***********************draw the objects here********************
-		if (begin == true && gameScreen == false)
+		if (begin == true && gameScreen == false && lost == false && landSeige.has_won()== false){
 		{
 			Uint64 current_time = SDL_GetTicks();
 			if (SDL_GetTicks() % 100 == 0)
@@ -258,7 +269,7 @@ void Game::run()
 			landSeige.drawObjects();
 			landSeige.handleprogress();
 			landSeige.handlereloader();
-		}
+		}}
 		// 	Play the music
 		if (Mix_PlayingMusic() == 0)
 		{
