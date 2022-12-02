@@ -17,14 +17,14 @@ class LandSeige
 {
     ObjectCreator &objCreator{ObjectCreator::get_instance()}; //toensure just one objectcreator is created
     ;
-    vector<war_equipment *> enemy;
-    vector<war_equipment *> user;
-    budget cash;
-    ProgressBar progressbar;
-    WeaponSelector weaponSelector{};
-    Reloader reloaders[6];
-    bool Win{false};
-    bool Lose{false};
+    vector<war_equipment *> enemy; //this stores all the randomly generated equipment
+    vector<war_equipment *> user;  //this stores all the equipment bought by the user
+    budget cash; //it is the budget of the user
+    ProgressBar progressbar; //used for loading the progress which is in the down corner of the screen
+    WeaponSelector weaponSelector{}; //to create  agreen box around the selected equipment when a key is pressed
+    Reloader reloaders[6]; //animation to indicate if the object is loaded or not and can be deployed or not
+    bool Win{false}; //used to change screens 
+    bool Lose{false}; //used to change the screens
     Uint64 init_time;
 
 public:

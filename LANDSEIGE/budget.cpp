@@ -8,7 +8,7 @@ budget::budget() // constructor
     cout << "budget initilaized" << endl;
 }
 
-char *budget::getbudget_4()
+char *budget::getbudget_4() //used to get current budget to display on screen
 {   
     if(amount==0)
     {
@@ -49,7 +49,7 @@ int budget::getbudget()
 }
 
 
-bool budget::has_budget(int price)
+bool budget::has_budget(int price) //checks if user can buy a particular equipment
 {
     if (amount >= price)
     {

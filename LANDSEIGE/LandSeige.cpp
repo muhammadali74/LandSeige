@@ -40,7 +40,7 @@ void LandSeige::drawObjects()
         {
             if (user[i]->get_moverRect().y == enemy[j]->get_moverRect().y)
             {
-                for (int k{0}; k < enemy[j]->get_ammunition().size(); k++)
+                for (int k{0}; k < enemy[j]->get_ammunition().size(); k++) //checks if the ammunition hits the equipment
                 {
                     if ((enemy[j]->get_ammunition()[k]->get_moverRect().x - user[i]->get_moverRect().x < 80))
                     {
@@ -65,7 +65,7 @@ void LandSeige::drawObjects()
 
         user[i]->fire_bullet(true);
 
-        if (user[i]->is_destroyed() == true)
+        if (user[i]->is_destroyed() == true) //destroy object when health is 0
         {
             user[i]->destruction();
             user[i]->draw();
@@ -205,7 +205,7 @@ void LandSeige::createUserEquipment(int x, int y)
     }
 }
 
-LandSeige::~LandSeige() // this destructor ensures that all the memor that was dynamically allocated is deallocated.
+LandSeige::~LandSeige() // this destructor ensures that all the memory that was dynamically allocated is deallocated.
 {
     for (int i{0}; i < enemy.size(); i++)
     {
@@ -271,7 +271,7 @@ void LandSeige::handlereloader()
     }
 }
 
-void LandSeige::DrawText(const char *msg)
+void LandSeige::DrawText(const char *msg) //displays budget amount
 {
     SDL_Surface *surface;
     SDL_Texture *texture;

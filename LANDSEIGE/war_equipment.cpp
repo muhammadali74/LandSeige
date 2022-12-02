@@ -35,7 +35,7 @@ war_equipment::war_equipment(int x, int y) //constructor
     moverRect = {x, y, xbox - 10, ybox - 10};
 }
 
-bool war_equipment::has_fired() 
+bool war_equipment::has_fired()  //checks if ammunition has been fired
 {
     if (amm.size() > prev_amm_size)
     {
@@ -53,12 +53,12 @@ vector<ammunition *> &war_equipment::get_ammunition() //stores ammunition
     return amm;
 }
 
-SDL_Rect war_equipment::get_moverRect() const
+SDL_Rect war_equipment::get_moverRect() const //used to check collision between ammunition and equipment
 {
     return moverRect;
 }
 
-war_equipment::~war_equipment()
+war_equipment::~war_equipment() //releases the memory on heap
 {
     for(int i{0}; i < amm.size(); i++)
     {
@@ -66,12 +66,12 @@ war_equipment::~war_equipment()
     }
 }
 
-void war_equipment::delete_amm(int k)
+void war_equipment::delete_amm(int k) //releases the memory on heap once the ammunition colllides with the equipment
 {
     delete amm[k];
 }
 
-void war_equipment::destruction()
+void war_equipment::destruction() //this allows blast animation to be displayed
 {
     srcRect = {141, 3133, 326, 285};
     cout << "YAY";
@@ -81,7 +81,7 @@ void war_equipment::fire(bool foe)
 {
 }
 
-void war_equipment::fire_bullet(bool foe)
+void war_equipment::fire_bullet(bool foe) //used for MG
 {
 }
 
@@ -170,6 +170,11 @@ void landMG::fire(bool foe)
     if (SDL_GetTicks() % 80 == 0 || SDL_GetTicks() % 80 == 5 || SDL_GetTicks() % 80 == 10 || SDL_GetTicks() % 80 == 15)
     {
         amm.push_back(new bullet1(moverRect.x + 192, moverRect.y + 20, foe));
+    }
+    for (int i{0}; i < amm.size(); i++)
+    {
+        amm[i]->draw();
+        amm[i]->move(foe);
     }
 }
 
