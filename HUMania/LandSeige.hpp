@@ -17,7 +17,8 @@ class LandSeige
 {
 
     // Right now we're creating one pigeon, just for practice. for details follow the guidlines
-    ObjectCreator& objCreator { ObjectCreator::get_instance() };;
+    ObjectCreator &objCreator{ObjectCreator::get_instance()};
+    ;
     vector<war_equipment *> enemy;
     vector<war_equipment *> user;
     budget cash;
@@ -32,6 +33,9 @@ class LandSeige
 public:
     vector<int> keypress;
     int keypressed = 0;
+    bool shot = false;
+    bool hit = false;
+    bool destroy = false;
 
     ~LandSeige();
     LandSeige();

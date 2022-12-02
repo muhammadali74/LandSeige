@@ -6,7 +6,7 @@ using namespace std;
 class budget
 {
 protected:
-    unsigned int amount;
+    int amount;
     float bonus;
 
 public:
@@ -16,14 +16,14 @@ public:
     void increasebudget(int);
     void decreasebudget(int);
     bool has_budget(int);
-    void operator +(int money)
+    void operator+(int money)
     {
         amount += money;
     }
-    void operator -(int money)
+    void operator-(int money)
     {
         amount -= money;
-        cout << "sub" <<endl;
+        cout << "sub" << endl;
     }
     // friend class LandSeige;
 };

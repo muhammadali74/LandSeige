@@ -12,6 +12,7 @@ protected:
     int health, price, ammunition_capacity;
     bool z;
     vector<ammunition *> amm;
+    int prev_amm_size = 0;
 
 public:
     virtual void destruction();
@@ -27,6 +28,7 @@ public:
     void health_change(int impact); // this is to delete bee when it exits the screen
     vector<ammunition *> &get_ammunition();
     SDL_Rect get_moverRect() const;
+    bool has_fired();
 };
 
 class generator : public war_equipment

@@ -4,13 +4,19 @@ using namespace std;
 
 budget::budget() // constructor
 {
-    amount = 1000;
+    amount = 1001;
     cout << "budget initilaized" << endl;
 }
 
 char *budget::getbudget_4()
 {
     cout << "Your budget is: " << amount << endl;
+    // if (amount == 0)
+    // {
+    //     char arr[] = "0";
+    //     return arr;
+    // }
+
     int m = amount;
     int n = amount;
     int digit = 0;
@@ -32,7 +38,8 @@ char *budget::getbudget_4()
     }
 
     arr[digit] = '\0';
-    // Return char array
+
+        // Return char array
     return arr;
 }
 int budget::getbudget()

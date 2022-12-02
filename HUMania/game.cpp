@@ -2,6 +2,8 @@
 #include "LandSeige.hpp"
 #include "drawing.hpp"
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
+#include <stdio.h>
 
 #include <Windows.h>
 
@@ -11,12 +13,20 @@ using namespace std;
 SDL_Renderer *Drawing::gRenderer = NULL;
 SDL_Texture *Drawing::assets = NULL;
 
+Mix_Music *music = NULL;
+Mix_Music *music2 = NULL;
+Mix_Chunk *effect = NULL;
+Mix_Chunk *effect2 = NULL;
+Mix_Chunk *effect3 = NULL;
+
 bool Game::init()
 {
 	// Initialization flag
 	bool success = true;
 
 	// Initialize SDL
+	SDL_Init(SDL_INIT_EVERYTHING);
+
 	TTF_Init();
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -59,6 +69,12 @@ bool Game::init()
 					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 					success = false;
 				}
+				// Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+				if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) < 0)
+				{
+					printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+					success = false;
+				}
 			}
 		}
 	}
@@ -71,6 +87,15 @@ bool Game::loadMedia()
 	// Loading success flag
 	bool success = true;
 
+	music = Mix_LoadMUS("beat2.wav");
+	music2 = Mix_LoadMUS("beat3.wav");
+	effect = Mix_LoadWAV("effects/pistol.wav");
+	effect2 = Mix_LoadWAV("effects/hit.wav");
+	effect2 = Mix_LoadWAV("effects/exp.wav");
+	if (music == NULL)
+	{
+		printf("Unable to load music: %s \n", Mix_GetError());
+	}
 	Drawing::assets = loadTexture("Artboard 1.png");
 	gTexture = loadTexture("main.png");
 	if (Drawing::assets == NULL || gTexture == NULL)
@@ -96,6 +121,7 @@ void Game::close()
 	Drawing::gRenderer = NULL;
 	// Quit SDL subsystems
 	IMG_Quit();
+	Mix_Quit();
 	SDL_Quit();
 }
 
@@ -128,37 +154,39 @@ SDL_Texture *Game::loadTexture(std::string path)
 void Game::run()
 {
 	bool quit = false;
-	bool gameScreen =false;
+	bool gameScreen = false;
 	SDL_Event e;
-	
+
+	// Mix_Music *music = Mix_LoadMUS("sound.wav");
+	// Mix_PlayMusic(music, -1);
+
 	LandSeige landSeige{};
-	
+
 	while (!quit && (landSeige.has_lost() == false))
 	{
-		if(SDL_GetTicks()>5000 && begin == false)
+		if (SDL_GetTicks() > 5000 && begin == false)
 		{
 			gTexture = loadTexture("Artboard1.png");
-
 			gameScreen = true;
 		}
-		if(e.type == SDL_MOUSEBUTTONDOWN && gameScreen == true){
-		int xMouse, yMouse;
-		SDL_GetMouseState(&xMouse, &yMouse);
-		gameScreen = false;
-		cout << xMouse << "  " << yMouse << endl;
-		if (yMouse >= 460 && yMouse <=590 && xMouse >=545 && xMouse <=900 )
+		if (e.type == SDL_MOUSEBUTTONDOWN && gameScreen == true)
 		{
-			//when start clicked
-			gTexture = loadTexture("abnew.png");
-			begin = true;
+			int xMouse, yMouse;
+			SDL_GetMouseState(&xMouse, &yMouse);
+			gameScreen = false;
+			cout << xMouse << "  " << yMouse << endl;
+			if (yMouse >= 460 && yMouse <= 590 && xMouse >= 545 && xMouse <= 900)
+			{
+				// when start clicked
+				gTexture = loadTexture("abnew.png");
+				begin = true;
+			}
+			else if (yMouse >= 620 && yMouse <= 750 && xMouse >= 545 && xMouse <= 900)
+			{
 
+				quit = true; // when exit clicked
+			}
 		}
-		else if (yMouse >= 620 && yMouse <=750 && xMouse >=545 && xMouse <=900 )
-		{
-			
-			quit = true; //when exit clicked
-
-		}}
 		// Handle events on queue
 		while (SDL_PollEvent(&e) != 0 && begin == true && gameScreen == false)
 		{
@@ -168,7 +196,7 @@ void Game::run()
 				quit = true;
 			}
 
-			if (e.type == SDL_MOUSEBUTTONDOWN )
+			if (e.type == SDL_MOUSEBUTTONDOWN)
 			{
 				// this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
@@ -178,7 +206,7 @@ void Game::run()
 				// landSeige.createEnemyEquipment();
 			}
 
-			if (e.type == SDL_KEYDOWN )
+			if (e.type == SDL_KEYDOWN)
 			{
 				if (e.key.keysym.sym == SDLK_1)
 				{
@@ -220,16 +248,44 @@ void Game::run()
 		SDL_RenderClear(Drawing::gRenderer);					  // removes everything from renderer
 		SDL_RenderCopy(Drawing::gRenderer, gTexture, NULL, NULL); // Draws background to renderer
 		//***********************draw the objects here********************
-		if (begin == true && gameScreen == false){
-		Uint64 current_time = SDL_GetTicks();
-		if (SDL_GetTicks() % 100 == 0)
+		if (begin == true && gameScreen == false)
 		{
-			landSeige.createEnemyEquipment();
+			Uint64 current_time = SDL_GetTicks();
+			if (SDL_GetTicks() % 100 == 0)
+			{
+				landSeige.createEnemyEquipment();
+			}
+			landSeige.drawObjects();
+			landSeige.handleprogress();
+			landSeige.handlereloader();
 		}
-		landSeige.drawObjects();
-		landSeige.handleprogress();
-		landSeige.handlereloader();
+		// 	Play the music
+		if (Mix_PlayingMusic() == 0)
+		{
+			// 	Play the music
+			Mix_PlayMusic(music, 2);
 		}
+
+		if (landSeige.shot == true)
+		{
+			// 	Play the sound effect
+			Mix_PlayChannel(-1, effect, 0);
+			landSeige.shot = false;
+		}
+		if (landSeige.hit == true)
+		{
+			// 	Play the sound effect
+			Mix_PlayChannel(-1, effect2, 0);
+			landSeige.hit = false;
+		}
+		if (landSeige.destroy == true)
+		{
+			// 	Play the sound effect
+			Mix_PlayChannel(-1, effect3, 0);
+			landSeige.destroy = false;
+		}
+		// cout << "Playing" << endl;
+
 		//****************************************************************
 		SDL_RenderPresent(Drawing::gRenderer); // displays the updated renderer
 

@@ -2,10 +2,10 @@
 #include "LandSeige.hpp"
 #include <SDL_ttf.h>
 #pragma once
-int m; //for enemy equipment blast display time
-int n; //for user equipment blast time
-int g{0}; //for enemy ammunition blast display time
-int h{0}; //for user equipment blast display time
+int m;    // for enemy equipment blast display time
+int n;    // for user equipment blast time
+int g{0}; // for enemy ammunition blast display time
+int h{0}; // for user equipment blast display time
 
 LandSeige::LandSeige()
 {
@@ -28,6 +28,13 @@ void LandSeige::drawObjects()
         if (objCreator.should_fire(user[i]->get_moverRect().y) == true || user[i]->name == "generator")
         {
             user[i]->fire(true);
+            if (user[i]->name != "generator")
+            {
+                if (user[i]->has_fired() == true)
+                {
+                    shot = true;
+                }
+            }
         }
         for (int j{0}; j < enemy.size(); j++)
         {
@@ -37,20 +44,20 @@ void LandSeige::drawObjects()
                 {
                     if ((enemy[j]->get_ammunition()[k]->get_moverRect().x - user[i]->get_moverRect().x < 80))
                     {
-                        if(g==0)
+                        if (g == 0)
                         {
-                        user[i]->health_change(enemy[j]->get_ammunition()[k]->get_Damage());
+                            user[i]->health_change(enemy[j]->get_ammunition()[k]->get_Damage());
+                            hit = true;
                         }
                         enemy[j]->get_ammunition()[k]->set_srcRect(g);
                         // user[i]->fire(true);
                         g++;
-                        if(g>4)
+                        if (g > 4)
                         {
-                        enemy[j]->get_ammunition().erase(enemy[j]->get_ammunition().begin() + k);
-                        cout << "impact user equiptment" << endl;
-                        g=0;
+                            enemy[j]->get_ammunition().erase(enemy[j]->get_ammunition().begin() + k);
+                            cout << "impact user equiptment" << endl;
+                            g = 0;
                         }
-                        
                     }
                 }
             }
@@ -63,13 +70,14 @@ void LandSeige::drawObjects()
             user[i]->destruction();
             user[i]->draw();
             m++;
-            if (m>10)
+            if (m > 10)
             {
                 objCreator.free_grid2(user[i]->get_moverRect().x, user[i]->get_moverRect().y);
                 delete user[i];
                 user.erase(user.begin() + i);
+                destroy = true;
                 cout << "object of the user has been destroyed" << endl;
-                m=0;
+                m = 0;
             }
         }
     }
@@ -103,17 +111,18 @@ void LandSeige::drawObjects()
                     {
                         if ((enemy[i]->get_moverRect().x - user[j]->get_ammunition()[k]->get_moverRect().x < 5))
                         {
-                            if (h==0)
+                            if (h == 0)
                             {
-                            enemy[i]->health_change(user[j]->get_ammunition()[k]->get_Damage());
+                                enemy[i]->health_change(user[j]->get_ammunition()[k]->get_Damage());
+                                hit = true;
                             }
                             user[j]->get_ammunition()[k]->set_srcRect(h);
                             h++;
-                            if(h>4)
+                            if (h > 4)
                             {
                                 user[j]->get_ammunition().erase(user[j]->get_ammunition().begin() + k);
                                 cout << "imapact call " << endl;
-                                h=0;
+                                h = 0;
                             }
                         }
                     }
@@ -121,19 +130,25 @@ void LandSeige::drawObjects()
             }
 
             enemy[i]->fire(false);
+            if (enemy[i]->has_fired() == true)
+            {
+                shot = true;
+            }
+
             if (enemy[i]->is_destroyed() == true) // checks if the bee hits the screen exit
             {
                 enemy[i]->destruction();
                 enemy[i]->draw();
                 n++;
-                if (n>10)
+                if (n > 10)
                 {
                     objCreator.free_grid(enemy[i]->get_moverRect().x, enemy[i]->get_moverRect().y);
                     objCreator.set_row(enemy[i]->get_moverRect().y);
                     delete enemy[i];                // deletes the bee, and the pointer becomes in a dangling state
                     enemy.erase(enemy.begin() + i); // erases that dangling pointer after freeing the memory
+                    destroy = true;
                     cout << "object of the enemy has been destroyed" << endl;
-                    n=0;
+                    n = 0;
                 }
             }
         }

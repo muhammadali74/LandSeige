@@ -34,6 +34,19 @@ war_equipment::war_equipment(int x, int y)
     moverRect = {x, y, xbox - 10, ybox - 10};
 }
 
+bool war_equipment::has_fired()
+{
+    if (amm.size() > prev_amm_size)
+    {
+        prev_amm_size = amm.size();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 vector<ammunition *> &war_equipment::get_ammunition()
 {
     return amm;
@@ -64,7 +77,7 @@ void generator::fire(bool foe)
 
     if ((SDL_GetTicks() - creation_time) % 1000 >= 0 && (SDL_GetTicks() - creation_time) % 1000 <= 10)
     {
-        *(cashmod)+200;
+        *(cashmod) + 200;
     }
 }
 
@@ -81,12 +94,10 @@ tanker::tanker(int x, int y, bool z, budget &b) : war_equipment{x, y}
     {
         srcRect = {975, 1500, 443, 231};
     }
-
-    
 }
 void war_equipment::destruction()
 {
-    srcRect= {141, 3133, 326, 285};
+    srcRect = {141, 3133, 326, 285};
     cout << "YAY";
 };
 void war_equipment::fire(bool foe)
@@ -120,8 +131,7 @@ void tanker::fire(bool foe)
 void tanker::move()
 {
     moverRect.x -= 1;
-    
-    
+
     // for(int i{0}; i < 500; i++)
     // {
     //     if (i%2==0)
@@ -243,7 +253,6 @@ void turret::fire(bool foe)
     if (rand() % 50 == 4)
     {
         amm.push_back(new bullet1(moverRect.x + 145, moverRect.y + 45, foe));
-        
     };
 
     for (int i{0}; i < amm.size(); i++)
