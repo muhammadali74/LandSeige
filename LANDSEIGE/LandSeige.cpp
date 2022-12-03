@@ -40,16 +40,16 @@ void LandSeige::drawObjects()
         {
             if (user[i]->get_moverRect().y == enemy[j]->get_moverRect().y)
             {
-                for (int k{0}; k < enemy[j]->get_ammunition().size(); k++) //checks if the ammunition hits the equipment
+                for (int k{0}; k < enemy[j]->get_ammunition().size(); k++) // checks if the ammunition hits the equipment
                 {
                     if ((enemy[j]->get_ammunition()[k]->get_moverRect().x - user[i]->get_moverRect().x < 80))
                     {
                         if (g == 0)
                         {
-                            user[i]->health_change(enemy[j]->get_ammunition()[k]->get_Damage()); 
+                            user[i]->health_change(enemy[j]->get_ammunition()[k]->get_Damage());
                             hit = true;
                         }
-                        enemy[j]->get_ammunition()[k]->set_srcRect(g); //changes to blast animation
+                        enemy[j]->get_ammunition()[k]->set_srcRect(g); // changes to blast animation
                         g++;
                         if (g > 4)
                         {
@@ -65,7 +65,7 @@ void LandSeige::drawObjects()
 
         user[i]->fire_bullet(true);
 
-        if (user[i]->is_destroyed() == true) //destroy object when health is 0
+        if (user[i]->is_destroyed() == true) // destroy object when health is 0
         {
             user[i]->destruction();
             user[i]->draw();
@@ -90,7 +90,7 @@ void LandSeige::drawObjects()
             {
                 Lose = true;
             }
-            
+
             if (objCreator.check_grid((enemy[i]->get_moverRect().x) - 40, enemy[i]->get_moverRect().y) == true)
             {
                 cout << "dont move" << endl;
@@ -100,7 +100,6 @@ void LandSeige::drawObjects()
                 objCreator.set_grid_false(enemy[i]->get_moverRect().x - 40, enemy[i]->get_moverRect().y);
                 enemy[i]->move();
             }
-            
 
             for (int j{0}; j < user.size(); j++)
             {
@@ -130,12 +129,13 @@ void LandSeige::drawObjects()
             }
 
             enemy[i]->fire(false);
+            enemy[i]->fire_bullet(false);
             if (enemy[i]->has_fired() == true)
             {
                 shot = true;
             }
 
-            if (enemy[i]->is_destroyed() == true) //checks if equipment health is 0
+            if (enemy[i]->is_destroyed() == true) // checks if equipment health is 0
             {
                 enemy[i]->destruction();
                 enemy[i]->draw();
@@ -271,7 +271,7 @@ void LandSeige::handlereloader()
     }
 }
 
-void LandSeige::DrawText(const char *msg) //displays budget amount
+void LandSeige::DrawText(const char *msg) // displays budget amount
 {
     SDL_Surface *surface;
     SDL_Texture *texture;
